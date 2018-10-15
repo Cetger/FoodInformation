@@ -66,4 +66,5 @@ public class CodeScannerActivity extends AppCompatActivity
         mCodeScanner.releaseResources();
         super.onPause();
     }
+
 }
