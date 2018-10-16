@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         else if(view.getId() == R.id.btnGet)
         {
             service = Common.GetService();
+
             service.getValues().enqueue(new Callback<Values>() {
                 @Override
                 public void onResponse(Call<Values> call, Response<Values> response) {
