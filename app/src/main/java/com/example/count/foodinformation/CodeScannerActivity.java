@@ -14,7 +14,7 @@ import com.budiyev.android.codescanner.CodeScannerView;
 import androidx.annotation.NonNull;
 
 public class CodeScannerActivity extends AppCompatActivity
-{ //denemee
+{ //deneme
     private static final int RC_PERMISSION = 10;
     private CodeScanner mCodeScanner;
     private boolean mPermissionGranted;
