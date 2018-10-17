@@ -29,6 +29,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         txSurName = findViewById(R.id.txtSurname);
         findViewById(R.id.button).setOnClickListener(this);
         findViewById(R.id.btnGet).setOnClickListener(this);
+        findViewById(R.id.btnSend).setOnClickListener(this);
+
+        service = Common.GetService();
     }
 
 
@@ -38,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(new Intent(this, CodeScannerActivity.class));
         else if(view.getId() == R.id.btnGet)
         {
-            service = Common.GetService();
+
 
             service.getValues().enqueue(new Callback<Values>() {
                 @Override
@@ -57,6 +60,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             });
         }
+        else if(view.getId() == R.id.btnSend)
+        {
+
+            service.postBarcodeNumber("111111").enqueue(new Callback<Values>() {
+                @Override
+                public void onResponse(Call<Values> call, Response<Values> response)
+                {
+                    if(response.isSuccessful())
+                    {
+                        txName.setText(response.body().getname());
+                        txSurName.setText(response.body().getsurname()[0]);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Values> call, Throwable t)
+                {
+                    Log.e("ERROR",t.getMessage());
+                }
+            });
+        }
     }
 
 }
+

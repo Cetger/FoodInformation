@@ -2,6 +2,11 @@ package Model;
 
 import java.util.List;
 
+import Remote.Service;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.http.Body;
+
 public class Values
 {
     private String name;
@@ -12,6 +17,7 @@ public class Values
         public int notlari;
     }
     private mysecondmodel mysecondmodels[];
+    private String BarcodeNumber;
 
     public String getname() {
         return name;
@@ -29,8 +35,4 @@ public class Values
         return mysecondmodels;
     }
 
-    public Values getValues()
-    {
-        return this;
-    }
 }
