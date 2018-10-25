@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private FragmentAdd fragmentAdd;
     private FragmentLogin fragmentLogin;
     private FragmentSearch fragmentSearch;
+    private FragmentProfile fragmentProfile;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +47,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         fragmentAdd = new FragmentAdd();
         fragmentLogin = new FragmentLogin();
         fragmentSearch = new FragmentSearch();
+        fragmentProfile = new FragmentProfile();
+
         nav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -53,7 +56,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 switch (menuItem.getItemId()) {
                     case R.id.nav_login:
                         nav.setItemBackgroundResource(R.color.colorPrimary);
-                        setFragment(fragmentLogin);
+                        if(!Common.Logon)
+                            setFragment(fragmentLogin);
+                        else
+                            setFragment(fragmentProfile);
                         return true;
                     case R.id.nav_search:
                         nav.setItemBackgroundResource(R.color.colorAccent);

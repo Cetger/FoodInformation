@@ -6,6 +6,7 @@ import Remote.Service;
 public class Common
 {
     private static String BASE_URL = "http://fiservice.fatihcankurtaran.com";
+    public static Boolean Logon = false;
 
     public static Service GetService()
     {

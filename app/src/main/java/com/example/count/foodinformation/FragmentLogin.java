@@ -3,6 +3,7 @@ package com.example.count.foodinformation;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +26,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
 
     private Service service;
     private EditText txID,txPW;
+    FragmentTransaction fragmentTransaction;
     public FragmentLogin() {
         // Required empty public constructor
     }
@@ -34,7 +36,9 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         View view = inflater.inflate(R.layout.fragment_fragment_login, container, false);
+        fragmentTransaction  =  getActivity().getSupportFragmentManager().beginTransaction();
         service = Common.GetService();
         txID = view.findViewById(R.id.txID);
         txPW = view.findViewById(R.id.txPW);
@@ -46,7 +50,8 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         if(view.getId() == R.id.btnLogin)
         {
-            service.getResponse(new Parameter("adwada")).enqueue(new Callback<PostResponse>() {
+            setFragment(new FragmentProfile());
+           /* service.getResponse(new Parameter("adwada")).enqueue(new Callback<PostResponse>() {
                 @Override
                 public void onResponse(Call<PostResponse> call, Response<PostResponse> response) {
                     if(response.isSuccessful())
@@ -59,24 +64,14 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
                 public void onFailure(Call<PostResponse> call, Throwable t) {
 
                 }
-            });
-           /* service.postBarcodeNumber("111111").enqueue(new Callback<Values>() {
-                @Override
-                public void onResponse(Call<Values> call, Response<Values> response)
-                {
-                   if(response.isSuccessful())
-                    {
-                        txID.setText(response.body().getname());
-                        txPW.setText(response.body().getsurname()[0]);
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<Values> call, Throwable t)
-               {
-                    Log.e("ERROR",t.getMessage());
-               }
-           });*/
+            });*/
         }
     }
+    private void setFragment(Fragment fragment)
+    {
+
+        fragmentTransaction.replace(R.id.frame_layout,fragment);
+        fragmentTransaction.commit();
+    }
+
 }

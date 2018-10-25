@@ -15,5 +15,7 @@ public interface Service
   @POST("/api/values/")
   Call<PostResponse> getResponse(@Body Parameter Value);
   @POST("/api/values/")
-    Call<Values> postBarcodeNumber(@Body String value);
+  Call<Values> postBarcodeNumber(@Body String value);
+
+
 }
