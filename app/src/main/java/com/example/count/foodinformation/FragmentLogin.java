@@ -49,7 +49,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         if(view.getId() == R.id.btnLogin)
-        {
+        { 
             setFragment(new FragmentProfile());
            /* service.getResponse(new Parameter("adwada")).enqueue(new Callback<PostResponse>() {
                 @Override
