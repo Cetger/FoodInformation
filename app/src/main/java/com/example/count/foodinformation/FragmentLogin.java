@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 
+import java.io.File;
 import java.io.IOException;
 
 import Model.CreateUserClass;
