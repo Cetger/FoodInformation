@@ -1,10 +1,8 @@
 package com.example.count.foodinformation;
 
-
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,56 +14,42 @@ import com.google.gson.Gson;
 import java.io.IOException;
 
 import Model.CreateUserClass;
-import Model.LoginClass;
 import Remote.Service;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class FragmentLogin extends Fragment implements View.OnClickListener {
 
+public class FragmentCreateUser extends Fragment implements View.OnClickListener {
     private Service service;
-    private EditText txID,txPW;
+    private EditText txtName,txtSurname,txtEmail,txtPassword,txtUsername;
     private TextView txtStatus;
-    FragmentTransaction fragmentTransaction;
-    public FragmentLogin() {
-        // Required empty public constructor
-    }
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
-        View view = inflater.inflate(R.layout.fragment_fragment_login, container, false);
-        fragmentTransaction  =  getActivity().getSupportFragmentManager().beginTransaction();
+        View view = inflater.inflate(R.layout.fragment_fragment_create_user, container, false);
+        view.findViewById(R.id.btnCreateAccount).setOnClickListener(this);
         service = Common.GetService();
-        txID = view.findViewById(R.id.txID);
-        txPW = view.findViewById(R.id.txPW);
+        txtName = view.findViewById(R.id.txtName);
+        txtSurname = view.findViewById(R.id.txtSurName);
+        txtUsername = view.findViewById(R.id.txtID);
+        txtPassword = view.findViewById(R.id.txtName);
+        txtEmail = view.findViewById(R.id.txtName);
         txtStatus = view.findViewById(R.id.txtStatus);
-        view.findViewById(R.id.btnLogin).setOnClickListener(this);
-        view.findViewById(R.id.btnGotoCreate).setOnClickListener(this);
         return view;
     }
-
     @Override
     public void onClick(View view) {
-        if(view.getId() == R.id.btnLogin)
+        if(view.getId() == R.id.btnCreateAccount)
         {
-            service.Login(new LoginClass(txID.getText().toString(),txPW.getText().toString())).enqueue(new Callback<LoginClass>() {
+            service.CreateUser(new CreateUserClass(txtName.getText().toString(),txtSurname.getText().toString(),txtEmail.getText().toString(),txtPassword.getText().toString(),txtUsername.getText().toString())).enqueue(new Callback<CreateUserClass>() {
                 @Override
-                public void onResponse(Call<LoginClass> call, Response<LoginClass> response) {
+                public void onResponse(Call<CreateUserClass> call, Response<CreateUserClass> response)
+                {
                     if(response.isSuccessful())
                     {
-                        FragmentProfile fragmentProfile = new FragmentProfile();
-                        Bundle bundle = new Bundle();
-                       // bundle.putString("Name",response.body().getUsernameOrEmail());
-                        setFragment(fragmentProfile);
+                        txtStatus.setText("Success");
                     }
                     else
                     {
@@ -81,25 +65,15 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
                             e.printStackTrace();
                         }
                     }
+
                 }
 
                 @Override
-                public void onFailure(Call<LoginClass> call, Throwable t) {
+                public void onFailure(Call<CreateUserClass> call, Throwable t) {
                     txtStatus.setText("Fail");
                 }
             });
-
         }
-        else if(view.getId() == R.id.btnGotoCreate)
-        {
-            setFragment(new FragmentCreateUser());
-        }
-    }
-    private void setFragment(Fragment fragment)
-    {
-
-        fragmentTransaction.replace(R.id.frame_layout,fragment);
-        fragmentTransaction.commit();
     }
 
 }

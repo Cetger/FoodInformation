@@ -1,5 +1,7 @@
 package Remote;
 
+import Model.CreateUserClass;
+import Model.LoginClass;
 import Model.Parameter;
 import Model.PostResponse;
 import Model.Values;
@@ -16,6 +18,9 @@ public interface Service
   Call<PostResponse> getResponse(@Body Parameter Value);
   @POST("/api/values/")
   Call<Values> postBarcodeNumber(@Body String value);
-
+  @POST("/api/User/CreateUser/")
+  Call<CreateUserClass> CreateUser(@Body CreateUserClass value);
+  @POST("/api/Login/CheckUserOnLogin/")
+  Call<LoginClass> Login(@Body LoginClass value);
 
 }
