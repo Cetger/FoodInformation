@@ -3,7 +3,18 @@
     <string name="nav_login">Login</string>
     <string name="nav_search">Search</string>
     <string name="nav_add">Add</string>
+    <string-array name="Languages">
+        <item>Turkish</item>
+        <item>English</item>
+        <item>German</item>
+        <item>Spanish</item>
+    </string-array>
+    <string name="title_activity_settings">Settings</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
+    <string-array name="pref_example_list_titles">
+        <item>Always</item>
+        <item>When possible</item>
+        <item>Never</item>
+    </string-array>
 </resources>

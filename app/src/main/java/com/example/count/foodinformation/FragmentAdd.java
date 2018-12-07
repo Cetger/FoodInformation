@@ -6,6 +6,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+
+import static com.example.count.foodinformation.MainActivity.Categories;
+import static com.example.count.foodinformation.MainActivity.arrayList;
+import static com.example.count.foodinformation.R.layout.support_simple_spinner_dropdown_item;
 
 
 /**
@@ -13,6 +19,7 @@ import android.view.ViewGroup;
  */
 public class FragmentAdd extends Fragment {
 
+    private Spinner categorySpinner;
 
     public FragmentAdd() {
         // Required empty public constructor
@@ -22,8 +29,13 @@ public class FragmentAdd extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_fragment_add, container, false);
+        View view = inflater.inflate(R.layout.fragment_fragment_add, container, false);
+        categorySpinner = view.findViewById(R.id.categorySpinner);
+        if(!Categories.isEmpty())
+        {
+            categorySpinner.setAdapter(new ArrayAdapter<CharSequence>(getContext(),support_simple_spinner_dropdown_item,arrayList));
+        }
+        return view;
     }
 
 }

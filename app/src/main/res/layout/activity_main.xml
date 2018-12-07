@@ -6,22 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/txWelcome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:layout_above="@+id/nav"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="201dp"
-        android:layout_marginEnd="43dp"
-        android:layout_marginBottom="205dp"
-        android:text="Welcome Screen"
-        android:textSize="36sp" />
-
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/nav"
         android:layout_width="match_parent"
@@ -31,14 +15,60 @@
         app:itemBackground="@color/colorPrimary"
         app:itemIconTint="@color/nav_item_colors"
         app:itemTextColor="@color/nav_item_colors"
+        android:visibility="invisible"
+        app:elevation="10dp"
         app:menu="@menu/nav_items" />
 
+    <LinearLayout
+        android:id="@+id/lyWelcome"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="4">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="Select Your Language : "
+                android:textAlignment="viewEnd" />
+
+
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="10dp"
+            android:text="Start" />
+    </LinearLayout>
     <FrameLayout
         android:id="@+id/frame_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/nav"
-    >
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginBottom="0dp">
+
+
 
     </FrameLayout>
 

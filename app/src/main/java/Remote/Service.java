@@ -1,6 +1,10 @@
 package Remote;
 
+import Model.CategoryClass;
+import Model.CategoryLanguage;
 import Model.CreateUserClass;
+import Model.ErrorClass;
+import Model.LanguagesClass;
 import Model.LoginClass;
 import Model.Parameter;
 import Model.PostResponse;
@@ -22,5 +26,10 @@ public interface Service
   Call<CreateUserClass> CreateUser(@Body CreateUserClass value);
   @POST("/api/Login/CheckUserOnLogin/")
   Call<LoginClass> Login(@Body LoginClass value);
-
+  @POST("/api/Language/GetLanguageList/")
+  Call<LanguagesClass> Languages();
+  @POST("/api/Error/GetErrorList/")
+  Call<ErrorClass> Errors();
+  @POST("/api/Category/GetProductCategoriesByLanguageCode/")
+  Call<CategoryClass> Categories(@Body CategoryLanguage categoryLanguage);
 }
