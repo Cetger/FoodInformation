@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".FragmentAdd"
-    >
+    tools:context=".FragmentAdd">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="6"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:weightSum="6">
 
         <TextView
             android:layout_width="0dp"
@@ -19,12 +19,13 @@
             android:layout_weight="2"
             android:gravity="end"
             android:text="BARCODE : " />
+
         <EditText
+            android:id="@+id/txtBarcode"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:ems="8"
             android:layout_weight="3"
-            android:id="@+id/txtBarcode"
+            android:ems="8"
             android:inputType="numberDecimal" />
 
         <Button
@@ -33,13 +34,14 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/baseline_camera_alt_black_48dp"
-            />
+            android:elevation="10dp" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="6"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:weightSum="6">
 
         <TextView
             android:layout_width="0dp"
@@ -47,20 +49,21 @@
             android:layout_weight="2"
             android:gravity="end"
             android:text="Product Name : " />
+
         <EditText
+            android:id="@+id/txtProductName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:ems="8"
             android:layout_weight="3"
-            android:id="@+id/txtProductName"
+            android:ems="8"
             android:inputType="text" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="6"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:weightSum="6">
 
         <TextView
             android:layout_width="0dp"
@@ -68,19 +71,21 @@
             android:layout_weight="2"
             android:gravity="end"
             android:text="INFO : " />
+
         <EditText
+            android:id="@+id/txtINFO1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:ems="8"
             android:layout_weight="3"
-            android:id="@+id/txtINFO1"
+            android:ems="8"
             android:inputType="text" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="6"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:weightSum="6">
 
         <TextView
             android:layout_width="0dp"
@@ -88,25 +93,27 @@
             android:layout_weight="2"
             android:gravity="end"
             android:text="Category : " />
+
         <Spinner
+            android:id="@+id/categorySpinner"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:id="@+id/categorySpinner"
-            ></Spinner>
+            android:layout_weight="3"></Spinner>
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="end"
         android:layout_marginEnd="50dp"
+        android:gravity="end"
         android:orientation="horizontal">
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:text="ADD"/>
+            android:text="ADD" />
 
     </LinearLayout>
 
