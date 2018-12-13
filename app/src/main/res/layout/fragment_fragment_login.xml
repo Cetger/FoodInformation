@@ -69,6 +69,7 @@
 
 
         <Button
+            android:id="@+id/btnLogin"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -91,10 +92,12 @@
                 android:text="Dont you have account?" />
 
             <TextView
+                android:id="@+id/btnGotoCreate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:text="Sıgn up"
+                android:clickable="true"
                 android:textColor="@color/colorPrimary"
                 android:textSize="15dp"
                 android:textStyle="bold" />
