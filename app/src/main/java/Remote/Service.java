@@ -48,7 +48,6 @@ public interface Service
 
   @POST("/api/Language/GetLanguageList/")
   Call<LanguagesClass> Languages();
-  @GET("/api/values/")
 
     //******ErrorController***********
 

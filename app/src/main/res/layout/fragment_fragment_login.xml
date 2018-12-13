@@ -23,6 +23,15 @@
             app:srcCompat="@drawable/orneklogo"
             android:layout_marginBottom="20dp"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Örnek hata"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp"
+
+            android:textStyle="bold|italic" />
+
 
         <EditText
             android:id="@+id/txID"
