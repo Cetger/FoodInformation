@@ -78,7 +78,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_settings_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/social/ic_whatshot_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -88,9 +88,12 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_settings_black_24dp" />
+                            <entry key="color" value="ff8d2d" />
+                            <entry key="height" value="96" />
+                            <entry key="outputName" value="orneklogo" />
                             <entry key="overrideSize" value="true" />
                             <entry key="sourceFile" value="C:\Users\junio" />
+                            <entry key="width" value="96" />
                           </map>
                         </option>
                       </PersistentState>
