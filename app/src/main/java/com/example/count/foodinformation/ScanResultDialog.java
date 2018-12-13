@@ -49,7 +49,7 @@ public class ScanResultDialog extends AppCompatDialog {
             //noinspection ConstantConditions
             ((ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE))
                     .setPrimaryClip(ClipData.newPlainText(null, result.getText()));
-            Toast.makeText(context, "Kopyala", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "Copy", Toast.LENGTH_LONG).show();
             dismiss();
         });
         //noinspection ConstantConditions
