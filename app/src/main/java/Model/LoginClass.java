@@ -2,20 +2,22 @@ package Model;
 
 public class LoginClass
 {
-    private String UsernameOrEmail;
+    private String Username;
     private String Password;
+    private String Email;
 
-    public String getUsernameOrEmail() {
-        return UsernameOrEmail;
-    }
-
-    public LoginClass(String usernameOrEmail, String password) {
-        UsernameOrEmail = usernameOrEmail;
+    public LoginClass( String password,String username, String email) {
+        Username = username;
         Password = password;
+        Email = email;
     }
 
-    public void setUsernameOrEmail(String usernameOrEmail) {
-        UsernameOrEmail = usernameOrEmail;
+    public String getUsername() {
+        return Username;
+    }
+
+    public void setUsername(String username) {
+        Username = username;
     }
 
     public String getPassword() {
@@ -24,5 +26,13 @@ public class LoginClass
 
     public void setPassword(String password) {
         Password = password;
+    }
+
+    public String getEmail() {
+        return Email;
+    }
+
+    public void setEmail(String email) {
+        Email = email;
     }
 }

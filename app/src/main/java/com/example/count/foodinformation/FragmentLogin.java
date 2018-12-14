@@ -31,7 +31,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
 
     private Service service;
     private EditText txID,txPW;
-    private TextView txtStatus;
+    private TextView txStatus;
     FragmentTransaction fragmentTransaction;
     public FragmentLogin() {
         // Required empty public constructor
@@ -48,7 +48,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
         service = Common.GetService();
         txID = view.findViewById(R.id.txID);
         txPW = view.findViewById(R.id.txPW);
-        txtStatus = view.findViewById(R.id.txtStatus);
+        txStatus = view.findViewById(R.id.txStatus);
         view.findViewById(R.id.btnLogin).setOnClickListener(this);
         view.findViewById(R.id.btnGotoCreate).setOnClickListener(this);
         return view;
@@ -58,7 +58,13 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         if(view.getId() == R.id.btnLogin)
         {
-            service.Login(new LoginClass(txID.getText().toString(),txPW.getText().toString())).enqueue(new Callback<LoginClass>() {
+            txStatus.setText("");
+            LoginClass loginClass;
+            if(txID.getText().toString().contains("@"))
+                loginClass =  new LoginClass(txPW.getText().toString(),null,txID.getText().toString());
+            else
+                loginClass =  new LoginClass(txPW.getText().toString(),txID.getText().toString(),null);
+            service.Login(loginClass).enqueue(new Callback<LoginClass>() {
                 @Override
                 public void onResponse(Call<LoginClass> call, Response<LoginClass> response) {
                     if(response.isSuccessful())
@@ -72,12 +78,13 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
                     {
                         Gson gson = new Gson();
                         try {
-                            txtStatus.setTextColor(Color.RED);
+                            txStatus.setTextColor(Color.RED);
+                            txStatus.setVisibility(View.VISIBLE);
                             CreateUserClass r = gson.fromJson(response.errorBody().string(), CreateUserClass.class);
                             if(r != null)
-                                txtStatus.setText(r.getMessage());
+                                txStatus.setText(MainActivity.Errors.get(r.getMessage()));
                             else
-                                txtStatus.setText("Unknown Error");
+                                txStatus.setText("Unknown Error");
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -86,7 +93,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
 
                 @Override
                 public void onFailure(Call<LoginClass> call, Throwable t) {
-                    txtStatus.setText("Fail");
+                    txStatus.setText("Fail");
                 }
             });
 

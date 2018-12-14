@@ -3,10 +3,14 @@ package com.example.count.foodinformation;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -23,8 +27,9 @@ import retrofit2.Response;
 
 public class FragmentCreateUser extends Fragment implements View.OnClickListener {
     private Service service;
-    private EditText txtName,txtSurname,txtEmail,txtPassword,txtUsername;
-    private TextView txtStatus;
+    private EditText txtName,txtSurname,txtEmail,txtPassword,txtPassword2,txtUsername;
+    private TextView txStatus;
+    private ImageView imageView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -34,9 +39,31 @@ public class FragmentCreateUser extends Fragment implements View.OnClickListener
         txtName = view.findViewById(R.id.txtName);
         txtSurname = view.findViewById(R.id.txtSurName);
         txtUsername = view.findViewById(R.id.txtID);
-        txtPassword = view.findViewById(R.id.txtName);
-        txtEmail = view.findViewById(R.id.txtName);
-        txtStatus = view.findViewById(R.id.txtStatus);
+        txtPassword = view.findViewById(R.id.txtPW);
+        txtPassword2 = view.findViewById(R.id.txtPW2);
+        txtEmail = view.findViewById(R.id.txtEmail);
+        txStatus = view.findViewById(R.id.txStatusCreate);
+        imageView = view.findViewById(R.id.imageView2);
+        txtPassword2.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            if(charSequence==txtPassword.getText())
+            {
+                imageView.setVisibility(View.VISIBLE);
+            }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
         return view;
     }
     @Override
@@ -49,18 +76,19 @@ public class FragmentCreateUser extends Fragment implements View.OnClickListener
                 {
                     if(response.isSuccessful())
                     {
-                        txtStatus.setText("Success");
+                        txStatus.setText("Success");
                     }
                     else
                     {
                         Gson gson = new Gson();
                         try {
-                            txtStatus.setTextColor(Color.RED);
+                            txStatus.setTextColor(Color.RED);
+                            txStatus.setVisibility(View.VISIBLE);
                             CreateUserClass r = gson.fromJson(response.errorBody().string(), CreateUserClass.class);
                             if(r != null)
-                                txtStatus.setText(r.getMessage());
+                                txStatus.setText(MainActivity.Errors.get(r.getMessage()));
                             else
-                                txtStatus.setText("Unknown Error");
+                                txStatus.setText("Unknown Error");
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -70,7 +98,7 @@ public class FragmentCreateUser extends Fragment implements View.OnClickListener
 
                 @Override
                 public void onFailure(Call<CreateUserClass> call, Throwable t) {
-                    txtStatus.setText("Fail");
+                    txStatus.setText("Fail");
                 }
             });
         }

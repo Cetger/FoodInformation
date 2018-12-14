@@ -21,7 +21,15 @@
             android:layout_height="wrap_content"
             android:src="@drawable/add96"
             />
-
+        <TextView
+            android:id="@+id/txStatusCreate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Örnek hata"
+            android:textColor="@color/colorPrimary"
+            android:textSize="15sp"
+            android:visibility="invisible"
+            android:textStyle="bold|italic" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -31,18 +39,18 @@
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:layout_margin="5dp"
+                android:layout_margin="4dp"
                 android:inputType="textPersonName"
-                android:text="Name" />
+                android:hint="Name" />
 
             <EditText
                 android:id="@+id/txtSurName"
                 android:layout_width="120dp"
-                android:layout_margin="5dp"
+                android:layout_margin="4dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="Surname" />
+                android:hint="Surname" />
 
         </LinearLayout>
 
@@ -52,19 +60,19 @@
             android:id="@+id/txtEmail"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_margin="4dp"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="E-Mail" />
+            android:hint="E-Mail" />
 
         <EditText
             android:id="@+id/txtID"
             android:layout_width="250dp"
-            android:layout_margin="5dp"
+            android:layout_margin="4dp"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="ID" />
+            android:hint="ID" />
 
         <EditText
             android:id="@+id/txtPW"
@@ -72,31 +80,42 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPassword"
-            android:text="Password" />
-        <EditText
-            android:id="@+id/txtPW2"
-            android:layout_width="250dp"
+            android:hint="Password" />
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPassword"
-            android:text="Password" />
+            android:orientation="horizontal"
+            android:layout_marginLeft="11dp"
+            >
+            <EditText
+                android:id="@+id/txtPW2"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPassword"
+                android:hint="Password" />
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/imgTick"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/check_icon"
+                android:visibility="invisible"
+                android:layout_gravity="center"
+                />
+        </LinearLayout>
+
 
         <Button
             android:id="@+id/btnCreateAccount"
             android:layout_width="250dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
             android:textColor="@color/colorWhite"
-            android:layout_margin="5dp"
-            android:textSize="15sp"
+            android:layout_margin="4dp"
+            android:textSize="13sp"
             android:text="Create Account" />
-        <TextView
-            android:id="@+id/txtStatus"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textAlignment="center"
-            android:textSize="20sp" />
+
+
 
     </LinearLayout>
 

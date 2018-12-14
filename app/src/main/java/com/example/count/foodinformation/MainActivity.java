@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private FragmentProfile fragmentProfile;
     private Spinner spinner;
     private ArrayList<CharSequence> LanguageCodes = new ArrayList<>();
-    private Map<String,String> Errors = new TreeMap<>();
+    public static Map<String,String> Errors = new TreeMap<>();
     public static Map<Integer,String> Categories = new TreeMap<>();
     public static ArrayList<CharSequence> arrayList = new ArrayList<>();
 
