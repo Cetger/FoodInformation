@@ -22,23 +22,31 @@
             android:src="@drawable/add96"
             />
 
-        <EditText
-            android:id="@+id/txtName"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:layout_margin="5dp"
-            android:inputType="textPersonName"
-            android:text="Name" />
 
-        <EditText
-            android:id="@+id/txtSurName"
-            android:layout_width="250dp"
-            android:layout_margin="5dp"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Surname" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/txtName"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:layout_margin="5dp"
+                android:inputType="textPersonName"
+                android:text="Name" />
+
+            <EditText
+                android:id="@+id/txtSurName"
+                android:layout_width="120dp"
+                android:layout_margin="5dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Surname" />
+
+        </LinearLayout>
+
+
 
         <EditText
             android:id="@+id/txtEmail"
@@ -80,7 +88,7 @@
             android:background="@color/colorPrimary"
             android:textColor="@color/colorWhite"
             android:layout_margin="5dp"
-            android:textSize="20sp"
+            android:textSize="15sp"
             android:text="Create Account" />
         <TextView
             android:id="@+id/txtStatus"

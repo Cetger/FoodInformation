@@ -6,109 +6,78 @@
     android:layout_height="match_parent"
     tools:layout_editor_absoluteY="81dp">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:text="Name : "
-        android:textSize="18sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/editText"
-        app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="103dp"
-        android:text="Surname : "
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        >
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Name"
+             />
 
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="24dp"
-        android:text="Email : "
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText2" />
+        <EditText
+            android:id="@+id/editText2"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="Surname"
+            android:inputType="textPersonName"
+           />
 
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:text="Password : "
-        android:textSize="18sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/editText4"
-        app:layout_constraintStart_toStartOf="parent" />
+        <EditText
+            android:id="@+id/editText3"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="Password"
+            android:inputType="textPersonName"
+             />
 
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="40dp"
-        android:layout_marginBottom="7dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/editText2"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <EditText
+            android:id="@+id/editText4"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="Email"
+            android:inputType="textPersonName"
+            />
 
-    <EditText
-        android:id="@+id/editText2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="40dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView8"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <Button
+            android:id="@+id/button"
+            android:layout_margin="20dp"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/colorWhite"
+            android:textSize="15sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Update"
+           />
 
-    <EditText
-        android:id="@+id/editText3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="40dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView10"
-        app:layout_constraintEnd_toEndOf="parent" />
 
-    <EditText
-        android:id="@+id/editText4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="9dp"
-        android:layout_marginEnd="40dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText3" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="8dp"
-        android:text="Update"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText4" />
+        <Button
+            android:id="@+id/btnLogOut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Log Out"
+            android:textColor="@color/colorWhite"
+            android:background="@color/colorPrimary"
+            android:textSize="15sp"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="20dp"
+            />
 
-    <Button
-        android:id="@+id/btnLogOut"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:text="Log Out"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+    </LinearLayout>
+
+
+
+
+
 </android.support.constraint.ConstraintLayout>

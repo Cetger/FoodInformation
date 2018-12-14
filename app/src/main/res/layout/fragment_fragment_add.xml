@@ -5,118 +5,69 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:gravity="center"
     tools:context=".FragmentAdd">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
         android:weightSum="6">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:gravity="end"
-            android:text="BARCODE : " />
-
-        <EditText
-            android:id="@+id/txtBarcode"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:ems="8"
-            android:inputType="numberDecimal" />
 
 
         <ImageButton
             android:id="@+id/btnGetBarcode"
-            android:layout_width="0dp"
+            android:layout_width="100dp"
             android:layout_height="40dp"
-            android:layout_weight="1"
             android:layout_marginTop="4dp"
             android:background="@color/colorWhite"
-            android:src="@drawable/baseline_camera_alt_black_48dp"
+            android:src="@drawable/cam"
+            android:layout_margin="5dp"
             />
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="6">
-
-        <TextView
-            android:layout_width="0dp"
+        <EditText
+            android:id="@+id/txtBarcode"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:gravity="end"
-            android:text="Product Name : " />
+            android:ems="8"
+            android:inputType="numberDecimal"
+            android:text="BarCode"
+            android:layout_margin="5dp"
+            />
+
+
 
         <EditText
             android:id="@+id/txtProductName"
-            android:layout_width="0dp"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
             android:ems="8"
-            android:inputType="text" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="6">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:gravity="end"
-            android:text="INFO : " />
+            android:inputType="text"
+            android:layout_margin="5dp"
+            android:text="Product Name" />
 
         <EditText
             android:id="@+id/txtINFO1"
-            android:layout_width="0dp"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
+            android:layout_margin="5dp"
             android:ems="8"
-            android:inputType="text" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="6">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:gravity="end"
-            android:text="Category : " />
+            android:inputType="text"
+            android:text="Info" />
 
         <Spinner
             android:id="@+id/categorySpinner"
-            android:layout_width="0dp"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_weight="3"></Spinner>
+            android:layout_margin="5dp"
+            ></Spinner>
 
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="50dp"
-        android:gravity="end"
-        android:orientation="horizontal">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
 
-            android:text="ADD" />
+
+
 
     </LinearLayout>
 
