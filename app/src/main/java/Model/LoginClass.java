@@ -1,12 +1,21 @@
 package Model;
 
-public class LoginClass
+public class LoginClass extends BaseDTO
 {
     private String Username;
     private String Password;
     private String Email;
+    private LoginClass Result;
 
-    public LoginClass( String password,String username, String email) {
+    public LoginClass getResult() {
+        return Result;
+    }
+
+    public void setResult(LoginClass result) {
+        Result = result;
+    }
+
+    public LoginClass(String password, String username, String email) {
         Username = username;
         Password = password;
         Email = email;

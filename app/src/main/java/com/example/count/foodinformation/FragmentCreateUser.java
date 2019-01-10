@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -33,7 +34,7 @@ public class FragmentCreateUser extends Fragment implements View.OnClickListener
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_fragment_create_user, container, false);
+        View view = getView() != null ? getView() :  inflater.inflate(R.layout.fragment_fragment_create_user, container, false);
         view.findViewById(R.id.btnCreateAccount).setOnClickListener(this);
         service = Common.GetService();
         txtName = view.findViewById(R.id.txtName);
@@ -70,6 +71,11 @@ public class FragmentCreateUser extends Fragment implements View.OnClickListener
     public void onClick(View view) {
         if(view.getId() == R.id.btnCreateAccount)
         {
+            if(txtEmail.getText().toString().equals("") || txtUsername.getText().toString().equals("") || !txtEmail.getText().toString().contains("@"))
+            {
+                Toast.makeText(getContext(), "There is an error in given information!", Toast.LENGTH_SHORT).show();
+                return;
+            }
             service.CreateUser(new CreateUserClass(txtName.getText().toString(),txtSurname.getText().toString(),txtEmail.getText().toString(),txtPassword.getText().toString(),txtUsername.getText().toString())).enqueue(new Callback<CreateUserClass>() {
                 @Override
                 public void onResponse(Call<CreateUserClass> call, Response<CreateUserClass> response)

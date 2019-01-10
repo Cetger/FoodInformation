@@ -1,5 +1,6 @@
 package Remote;
 
+import Model.BarcodeDTO;
 import Model.CategoryClass;
 import Model.CategoryLanguage;
 import Model.CategoryNameDTO;
@@ -11,6 +12,7 @@ import Model.LoginClass;
 import Model.Parameter;
 import Model.PostResponse;
 import Model.ProductDTO;
+import Model.ProductDTO2;
 import Model.UpdateCategoryNameDTO;
 import Model.UserDTO;
 import Model.Values;
@@ -28,8 +30,12 @@ public interface Service
 
   //******ProductController***********
 
-  @POST("/api/Login/CreateProduct/")
-  Call<Void> CreateProduct(@Body ProductDTO value);
+  @POST("/api/Product/CreateProduct/")
+Call<ProductDTO> CreateProduct(@Body ProductDTO value);
+  @POST("/api/Product/GetProductNameByBarcodeId/")
+  Call<ProductDTO> GetProductNameByBarcodeId(@Body BarcodeDTO value);
+
+
 
   //******UserController***********
 
@@ -56,8 +62,9 @@ public interface Service
 
     //******ContentController***********
 
-  @POST("/api/Category/CreateContentOfProduct/")
+  @POST("/api/Content/CreateContentOfProduct/")
   Call<ContentDTO> CreateContentOfProduct(@Body ContentDTO contentDTO);
+
 
    //******CategoryController***********
 

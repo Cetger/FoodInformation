@@ -13,7 +13,6 @@ import android.widget.TextView;
  */
 public class FragmentProfile extends Fragment implements View.OnClickListener {
 
-
     public FragmentProfile() {
         // Required empty public constructor
     }
@@ -22,7 +21,7 @@ public class FragmentProfile extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        View view = getView() != null ? getView() :  inflater.inflate(R.layout.fragment_profile, container, false);
         view.findViewById(R.id.btnLogOut).setOnClickListener(this);
         return view;
     }

@@ -18,6 +18,7 @@ import java.io.IOException;
 
 import Model.CreateUserClass;
 import Model.LoginClass;
+import Model.UserDTO;
 import Remote.Service;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,6 +33,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
     private Service service;
     private EditText txID,txPW;
     private TextView txStatus;
+    public static int UserID;
     FragmentTransaction fragmentTransaction;
     public FragmentLogin() {
         // Required empty public constructor
@@ -69,8 +71,23 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
                 public void onResponse(Call<LoginClass> call, Response<LoginClass> response) {
                     if(response.isSuccessful())
                     {
+                        String UserName = response.body().getResult().getUsername();
+                        service.GetUserDetailByUsername(new UserDTO(UserName)).enqueue(new Callback<UserDTO>() {
+                            @Override
+                            public void onResponse(Call<UserDTO> call, Response<UserDTO> response) {
+                                if(response.isSuccessful())
+                                {
+                                    UserID = response.body().getResult().Id;
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<UserDTO> call, Throwable t) {
+
+                            }
+                        });
+                       // UserID = response.body().getCreatedUserId();
                         FragmentProfile fragmentProfile = new FragmentProfile();
-                        Bundle bundle = new Bundle();
                        // bundle.putString("Name",response.body().getUsernameOrEmail());
                         setFragment(fragmentProfile);
                     }
@@ -107,6 +124,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
     {
 
         fragmentTransaction.replace(R.id.frame_layout,fragment);
+        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 

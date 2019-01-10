@@ -5,12 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
+    android:gravity="center_horizontal"
+    android:layout_marginTop="10dp"
     tools:context=".FragmentAdd">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="338dp"
+        android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:orientation="vertical"
         android:weightSum="6">
@@ -32,7 +33,7 @@
             android:layout_margin="5dp"
             android:ems="8"
             android:inputType="numberDecimal"
-            android:hint="BarCode" />
+            android:hint="BARCODE" />
 
 
         <EditText
@@ -45,19 +46,52 @@
             android:hint="Product Name" />
 
         <EditText
-            android:id="@+id/txtINFO1"
+            android:id="@+id/txContents"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:ems="8"
             android:inputType="text"
-            android:hint="Info" />
+            android:hint="Contents" />
+        <EditText
+            android:id="@+id/txRecommendations"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:ems="8"
+            android:inputType="text"
+            android:hint="Recommendations" />
 
         <Spinner
             android:id="@+id/categorySpinner"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"></Spinner>
+
+        <RatingBar
+            android:id="@+id/RatingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <Button
+                android:id="@+id/btnTest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="50dp"
+                android:text="Test" />
+            <Button
+                android:id="@+id/btnAdd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="50dp"
+                android:text="Add" />
+        </LinearLayout>
 
 
     </LinearLayout>

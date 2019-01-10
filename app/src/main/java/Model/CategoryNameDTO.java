@@ -2,15 +2,15 @@ package Model;
 
 public class CategoryNameDTO
 {
-    public int ID ;
+    public String ID ;
     public String CategoryName ;
     public String LanguageCode ;
 
-    public int getID() {
+    public String getID() {
         return ID;
     }
 
-    public void setID(int ID) {
+    public void setID(String ID) {
         this.ID = ID;
     }
 
@@ -28,5 +28,9 @@ public class CategoryNameDTO
 
     public void setLanguageCode(String languageCode) {
         LanguageCode = languageCode;
+    }
+
+    public CategoryNameDTO(String ID) {
+        this.ID = ID;
     }
 }

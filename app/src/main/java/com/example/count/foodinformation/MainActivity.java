@@ -2,11 +2,13 @@ package com.example.count.foodinformation;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -19,7 +21,10 @@ import android.widget.FrameLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -28,6 +33,7 @@ import java.util.TreeMap;
 
 import Model.CategoryClass;
 import Model.CategoryLanguage;
+import Model.CreateUserClass;
 import Model.DynamicPreference;
 import Model.ErrorClass;
 import Model.LanguagesClass;
@@ -45,21 +51,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Service service;
     private BottomNavigationView nav;
     private FrameLayout frameLayout;
-    private FragmentAdd fragmentAdd;
-    private FragmentLogin fragmentLogin;
-    private FragmentSearch fragmentSearch;
-    private FragmentProfile fragmentProfile;
+    public static MainActivity mainActivity;
+    public  FragmentAdd fragmentAdd;
+    public FragmentLogin fragmentLogin;
+    public FragmentSearch fragmentSearch;
+    public FragmentProfile fragmentProfile;
+    public static Fragment active;
     private Spinner spinner;
+    public static String Language;
     private ArrayList<CharSequence> LanguageCodes = new ArrayList<>();
     public static Map<String,String> Errors = new TreeMap<>();
-    public static Map<Integer,String> Categories = new TreeMap<>();
+    public static Map<String,String> Categories = new TreeMap<>();
     public static ArrayList<CharSequence> arrayList = new ArrayList<>();
 
-
-
-
-
-    @Override
+    public static String GetErrorMessage(Response response) {
+        Gson gson = new Gson();
+        try {
+            CreateUserClass r = gson.fromJson(response.errorBody().string(), CreateUserClass.class);
+            if (r != null)
+                return (MainActivity.Errors.get(r.getMessage()));
+            else
+                return "Unknown Error" + r.getMessage();
+            //return  MainActivity.Errors.get(ErrorCode);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "Unknown Error";
+        }
+    }
+        @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId()== R.id.Settings)
         {
@@ -86,6 +105,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        findViewById(R.id.button).setOnClickListener(this);
 //        findViewById(R.id.btnGet).setOnClickListener(this);
 //        findViewById(R.id.btnSend).setOnClickListener(this);
+        mainActivity = this;
         nav = findViewById(R.id.nav);
         fragmentAdd = new FragmentAdd();
         fragmentLogin = new FragmentLogin();
@@ -104,11 +124,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         setFragment(fragmentProfile);
                     return true;
                 case R.id.nav_search:
-
-                    setFragment(fragmentSearch);
+                        setFragment(fragmentSearch);
                     return true;
                 case R.id.nav_add:
-                    setFragment(fragmentAdd);
+                        setFragment(fragmentAdd);
                     return true;
                 default:
                     return false;
@@ -117,12 +136,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         frameLayout = findViewById(R.id.frame_layout);
         service = Common.GetService();
         GetErrorList();
-        if(!PreferenceManager.getDefaultSharedPreferences(this).getString("Language", "").equals(""))
+        Language = PreferenceManager.getDefaultSharedPreferences(this).getString("Language", "");
+        if(!Language.equals(""))
             SkipWelcome();
-        else
+        //else
         {
             spinner = findViewById(R.id.spinner);
             GetLanguageList();
+
+
         }
     }
     public void GetLanguageList()
@@ -190,14 +212,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
     public void GetCategoryList()
     {
-        service.Categories(new CategoryLanguage(PreferenceManager.getDefaultSharedPreferences(this).getString("Language", ""))).enqueue(new Callback<CategoryClass>() {
+        service.Categories(new CategoryLanguage(Language)).enqueue(new Callback<CategoryClass>() {
             @Override
             public void onResponse(Call<CategoryClass> call, Response<CategoryClass> response) {
                 if(response.isSuccessful())
                 {
                     for(int i = 0 ; i<response.body().getResult().length;i++)
                     {
-                        Categories.put(response.body().getResult()[i].getID(),response.body().getResult()[i].getCategoryName());
+                        Categories.put(response.body().getResult()[i].getCategoryName(),String.valueOf(response.body().getResult()[i].getID()));
                         arrayList.add(response.body().getResult()[i].getCategoryName());
                     }
                 }
@@ -237,6 +259,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         fragmentTransaction.replace(R.id.frame_layout,fragment);
         fragmentTransaction.commit();
     }
+
 }
 
 

@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,20 +29,31 @@ public class FragmentSearch extends Fragment {
     private static final int RC_PERMISSION = 10;
     private CodeScanner mCodeScanner;
     private boolean mPermissionGranted;
+    public boolean getBarcode;
+    public FragmentAdd fragmentAdd;
     public FragmentSearch() {
         // Required empty public constructor
     }
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_fragment_search, container, false);
+        View view = getView() != null ? getView() : inflater.inflate(R.layout.fragment_fragment_search, container, false);
         mCodeScanner = new CodeScanner(Objects.requireNonNull(getContext()).getApplicationContext(), view.findViewById(R.id.scanner));
         mCodeScanner.setDecodeCallback(result ->  Objects.requireNonNull(getActivity()).runOnUiThread(() -> {
-            ScanResultDialog dialog = new ScanResultDialog(getContext(), result);
-            dialog.setOnDismissListener(d -> mCodeScanner.startPreview());
-            dialog.show();
+            if(getBarcode)
+            {
+                //fragmentAdd.txBarcode.setText("1111");
+                //String a = fragmentAdd.txBarcode.getText().toString();
+                Bundle bundle = new Bundle();
+                bundle.putString("BARCODE",result.getText());
+             //   fragmentAdd.setArguments(bundle);
+                setFragment(MainActivity.mainActivity.fragmentAdd);
+            }
+            else {
+                ScanResultDialog dialog = new ScanResultDialog(getContext(), result);
+                dialog.setOnDismissListener(d -> mCodeScanner.startPreview());
+                dialog.show();
+            }
         }));
         mCodeScanner.setErrorCallback(error -> Objects.requireNonNull(getActivity()).runOnUiThread(
                 () -> Toast.makeText(getContext(), "Scanner Error", Toast.LENGTH_LONG).show()));
@@ -82,6 +94,13 @@ public class FragmentSearch extends Fragment {
     public void onPause() {
         mCodeScanner.releaseResources();
         super.onPause();
+    }
+    private void setFragment(Fragment fragment)
+    {
+        FragmentTransaction fragmentTransaction  =  getActivity().getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.frame_layout,fragment);
+      //  fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
 }
