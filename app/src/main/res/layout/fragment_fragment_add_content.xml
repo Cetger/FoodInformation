@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FragmentAddContent">
+    <LinearLayout
+        android:id="@+id/Layout_Content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <Components.MultiSpinner
+            android:id="@+id/LanguageMS"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+        </Components.MultiSpinner>
+        <Button
+            android:id="@+id/btnNext2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Next"
+            android:layout_gravity="end|bottom"/>
+</LinearLayout>
+
+
+</ScrollView>

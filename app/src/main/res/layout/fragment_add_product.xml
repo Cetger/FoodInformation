@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context=".FragmentAddProduct">
+
+    <EditText
+        android:id="@+id/txtBarcode2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="8"
+        android:hint="BARCODE"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/txProductName2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="8"
+        android:hint="Product Name" />
+
+    <Spinner
+        android:id="@+id/categorySpinner2"
+        android:layout_width="175dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"></Spinner>
+
+    <Button
+        android:id="@+id/btnNext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginEnd="90dp"
+        android:text="Next" />
+
+</LinearLayout>

@@ -89,7 +89,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
                        // UserID = response.body().getCreatedUserId();
                         FragmentProfile fragmentProfile = new FragmentProfile();
                        // bundle.putString("Name",response.body().getUsernameOrEmail());
-                        setFragment(fragmentProfile);
+                        setFragment(new FragmentAddProduct());//setFragment(fragmentProfile);
                     }
                     else
                     {

@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
+import com.budiyev.android.codescanner.DecodeCallback;
+import com.google.zxing.Result;
 
 import java.util.Objects;
 
@@ -39,20 +41,22 @@ public class FragmentSearch extends Fragment {
                              Bundle savedInstanceState) {
         View view = getView() != null ? getView() : inflater.inflate(R.layout.fragment_fragment_search, container, false);
         mCodeScanner = new CodeScanner(Objects.requireNonNull(getContext()).getApplicationContext(), view.findViewById(R.id.scanner));
-        mCodeScanner.setDecodeCallback(result ->  Objects.requireNonNull(getActivity()).runOnUiThread(() -> {
-            if(getBarcode)
-            {
-                //fragmentAdd.txBarcode.setText("1111");
-                //String a = fragmentAdd.txBarcode.getText().toString();
+        mCodeScanner.setDecodeCallback(result -> Objects.requireNonNull(getActivity()).runOnUiThread(() -> {
+            if (getBarcode) {
+                getBarcode=false;
                 Bundle bundle = new Bundle();
-                bundle.putString("BARCODE",result.getText());
-             //   fragmentAdd.setArguments(bundle);
-                setFragment(MainActivity.mainActivity.fragmentAdd);
-            }
-            else {
-                ScanResultDialog dialog = new ScanResultDialog(getContext(), result);
-                dialog.setOnDismissListener(d -> mCodeScanner.startPreview());
-                dialog.show();
+                bundle.putString("BARCODE", result.getText());
+                 fragmentAdd.setArguments(bundle);
+                 FragmentSearch.this.setFragment(fragmentAdd);
+            } else {
+                Bundle bundle = new Bundle();
+                bundle.putString("BARCODE", result.getText());
+                FragmentShowInfo fragmentShowInfo = new FragmentShowInfo();
+                fragmentShowInfo.setArguments(bundle);
+                setFragment(fragmentShowInfo);
+                //ScanResultDialog dialog = new ScanResultDialog(FragmentSearch.this.getContext(), result);
+                //dialog.setOnDismissListener(d -> mCodeScanner.startPreview());
+                //dialog.show();
             }
         }));
         mCodeScanner.setErrorCallback(error -> Objects.requireNonNull(getActivity()).runOnUiThread(

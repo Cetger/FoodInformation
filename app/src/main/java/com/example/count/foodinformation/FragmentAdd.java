@@ -19,9 +19,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Objects;
+
 import Model.BarcodeDTO;
 import Model.CategoryNameDTO;
 import Model.ContentDTO;
+import Model.LanguagesClass;
+import Model.NutritionFacts;
 import Model.ProductDTO;
 import Model.ProductDTO2;
 import Remote.Service;
@@ -49,69 +53,63 @@ public class FragmentAdd extends Fragment {
     RatingBar ratingBar;
     Button btnAdd,btnTest;
     ImageButton btnGetBarcode;
+    public String Ab = "";
     public String a = "";
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = getView() != null ? getView() : inflater.inflate(R.layout.fragment_fragment_add, container, false);
-        view.notifyAll();
-                categorySpinner = view.findViewById(R.id.categorySpinner);
+        categorySpinner = view.findViewById(R.id.categorySpinner);
         service = Common.GetService();
         if(!Categories.isEmpty())
         {
             categorySpinner.setAdapter(new ArrayAdapter<>(getContext(), support_simple_spinner_dropdown_item, arrayList));
         }
-        if(txBarcode== null)
+
         txBarcode = view.findViewById(R.id.txtBarcode);
         txProductName = view.findViewById(R.id.txtProductName);
-        Toast.makeText(getContext(), txBarcode.getText().toString(), Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(getContext(), txBarcode.getText().toString(), Toast.LENGTH_SHORT).show();
         Bundle bundle = this.getArguments();
-        if (bundle != null) {
-           // String B = txBarcode.getText().toString();
-           // String A = bundle.getString("BARCODE");
-            txProductName.setText("122");
-        }
+        if (bundle != null)
+            new Thread(() -> FragmentAdd.this.getActivity().runOnUiThread(() -> txBarcode.setText( bundle.getString("BARCODE")))).start();
         txRecommendations = view.findViewById(R.id.txRecommendations);
         txContents = view.findViewById(R.id.txContents);
 
         btnAdd = view.findViewById(R.id.btnAdd);
-        btnTest = view.findViewById(R.id.btnTest);
-        btnTest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getContext(),txBarcode.getText().toString(),Toast.LENGTH_SHORT).show();
-            }
-        });
         btnGetBarcode = view.findViewById(R.id.btnGetBarcode);
         btnGetBarcode.setOnClickListener(view12 -> {
             FragmentSearch fragmentSearch =  mainActivity.fragmentSearch;
             fragmentSearch.getBarcode = true;
+            fragmentSearch.fragmentAdd = this;
             setFragment(fragmentSearch);
         });
 
         btnAdd.setOnClickListener(view1 -> {
-            String A  = String.valueOf(MainActivity.Categories.get(categorySpinner.getSelectedItem().toString()));
-            ProductDTO product = new ProductDTO(txBarcode.getText().toString(),txProductName.getText().toString(),0,null,null,null,new CategoryNameDTO(A));
-            service.CreateProduct(product)
-                    .enqueue(new Callback<ProductDTO>() {
-                        @Override
-                        public void onResponse(Call<ProductDTO> call, Response<ProductDTO> response) {
-                            if (response.isSuccessful())
-                            {
-                                Toast.makeText(getContext(), "CreateProduct Successfully", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(getContext(), MainActivity.GetErrorMessage(response), Toast.LENGTH_SHORT).show();
-                            }
-                        }
 
-                        @Override
-                        public void onFailure(Call<ProductDTO> call, Throwable t) {
-                            Toast.makeText(getContext(), "CreateProduct Failure", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-            ContentDTO contentDTO = new ContentDTO(txContents.getText().toString(),txRecommendations.getText().toString());
+            if(txProductName.isEnabled()) {
+                String A  = String.valueOf(MainActivity.Categories.get(categorySpinner.getSelectedItem().toString()));
+                ProductDTO product = new ProductDTO(txBarcode.getText().toString(), txProductName.getText().toString(), 0, null, null, null, new CategoryNameDTO(A));
+                service.CreateProduct(product)
+                        .enqueue(new Callback<ProductDTO>() {
+                            @Override
+                            public void onResponse(Call<ProductDTO> call, Response<ProductDTO> response) {
+                                if (response.isSuccessful()) {
+                                    // Toast.makeText(getContext(), "CreateProduct Successfully", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(getContext(), MainActivity.GetErrorMessage(response), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<ProductDTO> call, Throwable t) {
+                                Toast.makeText(getContext(), "CreateProduct Failure", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            }
+            ContentDTO contentDTO = new ContentDTO(txContents.getText().toString(),txRecommendations.getText().toString(),new NutritionFacts("1"));
             contentDTO.setProduct(new ProductDTO(txBarcode.getText().toString()));
             contentDTO.setCreatedUserId(FragmentLogin.UserID);
+            contentDTO.setLanguage(new LanguagesClass(MainActivity.Language));
             service.CreateContentOfProduct(contentDTO).enqueue(new Callback<ContentDTO>() {
                 @Override
                 public void onResponse(Call<ContentDTO> call, Response<ContentDTO> response) {
@@ -143,6 +141,7 @@ public class FragmentAdd extends Fragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
+                //Toast.makeText(getContext(),editable.toString(),Toast.LENGTH_SHORT).show();
                 txProductName.setEnabled(true);
                 service.GetProductNameByBarcodeId(new BarcodeDTO(txBarcode.getText().toString())).enqueue(new Callback<ProductDTO>() {
                     @Override
@@ -152,7 +151,7 @@ public class FragmentAdd extends Fragment {
                             txProductName.setText(response.body().getResult().getProductName());
                             txProductName.setEnabled(false);
                         }
-                     //   Toast.makeText(getContext(),"GetProductName Error",Toast.LENGTH_SHORT).show();
+                        //   Toast.makeText(getContext(),"GetProductName Error",Toast.LENGTH_SHORT).show();
                     }
 
                     @Override

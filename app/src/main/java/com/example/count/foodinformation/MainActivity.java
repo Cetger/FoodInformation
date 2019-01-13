@@ -59,11 +59,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static Fragment active;
     private Spinner spinner;
     public static String Language;
-    private ArrayList<CharSequence> LanguageCodes = new ArrayList<>();
+
+    public static List<String> LanguageCodes = new ArrayList<>();
     public static Map<String,String> Errors = new TreeMap<>();
     public static Map<String,String> Categories = new TreeMap<>();
+    public static Map<String,String> Languages = new TreeMap<>();
     public static ArrayList<CharSequence> arrayList = new ArrayList<>();
-
+    public static List<String> llist ;
     public static String GetErrorMessage(Response response) {
         Gson gson = new Gson();
         try {
@@ -116,6 +118,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         nav.setOnNavigationItemSelectedListener(menuItem -> {
             findViewById(R.id.lyWelcome).setVisibility(View.INVISIBLE);
+            if(fragmentSearch.getBarcode)fragmentSearch.getBarcode=false;
             switch (menuItem.getItemId()) {
                 case R.id.nav_login:
                     if(!Common.Logon)
@@ -154,9 +157,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onResponse(Call<LanguagesClass> call, Response<LanguagesClass> response) {
                 if(response.isSuccessful())
                 {
-                ArrayAdapter<CharSequence> arrayAdapter = new ArrayAdapter<CharSequence>(MainActivity.this,support_simple_spinner_dropdown_item);
+                ArrayAdapter<CharSequence> arrayAdapter;
+                arrayAdapter = new ArrayAdapter<CharSequence>(MainActivity.this,support_simple_spinner_dropdown_item);
                 String Language =  Locale.getDefault().getDisplayLanguage();
-                List<String> llist = new ArrayList<>();
+                llist = new ArrayList<>();
                 List<String> dlist = new ArrayList<>();
                 int Index = -1;
                 for(int i = 0 ;i<response.body().getResult().length;i++)
@@ -250,7 +254,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     {
         findViewById(R.id.lyWelcome).setVisibility(View.INVISIBLE);
         nav.setVisibility(View.VISIBLE);
-        setFragment(fragmentLogin);
+        setFragment(fragmentLogin);//
         GetCategoryList();
     }
     private void setFragment(Fragment fragment)

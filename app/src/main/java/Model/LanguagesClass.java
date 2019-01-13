@@ -8,6 +8,10 @@ public class LanguagesClass
     private String NativeLanguageName;
     private LanguagesClass[] Result;
 
+    public LanguagesClass(String languageCode) {
+        LanguageCode = languageCode;
+    }
+
     public int getID() {
         return ID;
     }

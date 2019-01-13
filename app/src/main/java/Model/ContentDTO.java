@@ -16,10 +16,32 @@ public class ContentDTO  extends BaseDTO
     private String Details ;
     private List<CommentDTO> Comments ;
     private int AverageVote ;
+    private ContentDTO Result;
 
-    public ContentDTO(String ingredients, String recommendations) {
+    public ContentDTO(String ingredients, NutritionFacts nutritionFact, ProductDTO product, String warnings, String cookingTips, String recommendations, String videoURL, LanguagesClass language, String details) {
+        Ingredients = ingredients;
+        NutritionFact = nutritionFact;
+        Product = product;
+        Warnings = warnings;
+        CookingTips = cookingTips;
+        Recommendations = recommendations;
+        VideoURL = videoURL;
+        Language = language;
+        Details = details;
+    }
+
+    public ContentDTO getResult() {
+        return Result;
+    }
+
+    public void setResult(ContentDTO result) {
+        Result = result;
+    }
+
+    public ContentDTO(String ingredients, String recommendations, NutritionFacts nutritionFact) {
         Ingredients = ingredients;
         Recommendations = recommendations;
+        this.NutritionFact = nutritionFact;
     }
 
     public String getIngredients() {

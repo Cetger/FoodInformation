@@ -7,6 +7,7 @@ import Model.CategoryNameDTO;
 import Model.ContentDTO;
 import Model.CreateUserClass;
 import Model.ErrorClass;
+import Model.LanguageAndProductDTO;
 import Model.LanguagesClass;
 import Model.LoginClass;
 import Model.Parameter;
@@ -54,6 +55,8 @@ Call<ProductDTO> CreateProduct(@Body ProductDTO value);
 
   @POST("/api/Language/GetLanguageList/")
   Call<LanguagesClass> Languages();
+  @POST("/api/Language/GetLanguageListOfProductByBarcodeId/")
+  Call<LanguagesClass> GetLanguageListOfProductByBarcodeId(@Body BarcodeDTO barcodeDTO);
 
     //******ErrorController***********
 
@@ -61,6 +64,9 @@ Call<ProductDTO> CreateProduct(@Body ProductDTO value);
   Call<ErrorClass> Errors();
 
     //******ContentController***********
+
+  @POST("/api/Content/GetProductContentByLanguageCode/")
+  Call<ContentDTO> GetProductContentByLanguageCode(@Body LanguageAndProductDTO contentDTO);
 
   @POST("/api/Content/CreateContentOfProduct/")
   Call<ContentDTO> CreateContentOfProduct(@Body ContentDTO contentDTO);

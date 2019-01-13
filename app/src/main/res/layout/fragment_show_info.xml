@@ -27,25 +27,30 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="8"
-        android:id="@+id/ProductName"/>
+        android:text="Product Name"
+        android:id="@+id/txProductName"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="8"
-        android:id="@+id/ProductCategory"/>
+        android:text="Product Category"
+        android:id="@+id/txProductCategory"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="8"
-        android:id="@+id/Ingredients"/>
+        android:text="Product Ingredients"
+        android:id="@+id/txIngredients"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="8"
+        android:text="Product Details"
         android:id="@+id/Details"/>
     <android.support.v7.widget.AppCompatRatingBar
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:id="@+id/Rate"/>
 
 
 
