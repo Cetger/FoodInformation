@@ -1,6 +1,7 @@
 package com.example.count.foodinformation;
 
 
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -24,6 +26,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.content.Context.MODE_PRIVATE;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,6 +37,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
     private Service service;
     private EditText txID,txPW;
     private TextView txStatus;
+    private CheckBox checkBox;
     public static int UserID;
     FragmentTransaction fragmentTransaction;
     public FragmentLogin() {
@@ -50,9 +55,18 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
         service = Common.GetService();
         txID = view.findViewById(R.id.txID);
         txPW = view.findViewById(R.id.txPW);
+        checkBox = view.findViewById(R.id.checkRemember);
         txStatus = view.findViewById(R.id.txStatus);
         view.findViewById(R.id.btnLogin).setOnClickListener(this);
         view.findViewById(R.id.btnGotoCreate).setOnClickListener(this);
+        SharedPreferences prefs = getActivity().getSharedPreferences("FoodINFO", MODE_PRIVATE);
+            String ID = prefs.getString("ID", "No name defined");
+            String PW = prefs.getString("PW", "No name defined");
+            if(!ID.equals("No name defined"))
+            {
+                txID.setText(ID);
+                txPW.setText(PW);
+            }
         return view;
     }
 
@@ -77,6 +91,13 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
                             public void onResponse(Call<UserDTO> call, Response<UserDTO> response) {
                                 if(response.isSuccessful())
                                 {
+                                     if(checkBox.isChecked())
+                                    {
+                                        SharedPreferences.Editor editor = getActivity().getSharedPreferences("FoodINFO", MODE_PRIVATE).edit();
+                                        editor.putString("ID", txID.getText().toString());
+                                        editor.putString("PW", txPW.getText().toString());
+                                        editor.apply();
+                                    }
                                     UserID = response.body().getResult().Id;
                                 }
                             }

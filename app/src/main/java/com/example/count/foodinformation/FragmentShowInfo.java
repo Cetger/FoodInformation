@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import Model.ContentDTO;
@@ -16,7 +17,7 @@ import retrofit2.Response;
 
 public class FragmentShowInfo extends Fragment {
     private Service service ;
-    private EditText txIngredients,txProductCategory,txProductName;
+    private TextView txIngredients,txProductCategory,txProductName;
     public FragmentShowInfo() {
         // Required empty public constructor
     }

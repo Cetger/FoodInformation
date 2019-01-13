@@ -78,7 +78,7 @@ public class FragmentAddContent extends Fragment {
                     multiSpinner.setItems(llist2, "Languages", (boolean[] selected) -> {
                     layout.removeAllViews();
                     layout.addView(multiSpinner);
-                    layout.addView(btnNext);
+
                     SelectedCount= 0;
                         for (int i = 0;i<selected.length;i++)
                         {
@@ -214,7 +214,9 @@ public class FragmentAddContent extends Fragment {
                             ItemCount++;
                         }
                     }
+                        layout.addView(btnNext);
                     });
+
                 }
             }
 
@@ -246,7 +248,7 @@ public class FragmentAddContent extends Fragment {
     {
         FragmentTransaction fragmentTransaction  =  getActivity().getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout,fragment);
-        //  fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 

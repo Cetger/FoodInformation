@@ -12,8 +12,9 @@ public class NutritionFacts
     private String Carbohydrate  ;
     private String Protein  ;
     private String Salt  ;
+    private String Fiber  ;
 
-    public NutritionFacts(String energy, String fat, String saturatedFattyAcids, String transFattyAcids, String carbohydrate, String protein, String salt) {
+    public NutritionFacts(String energy, String fat, String saturatedFattyAcids, String transFattyAcids, String carbohydrate, String protein, String salt,String fiber) {
         Energy = energy;
         Fat = fat;
         SaturatedFattyAcids = saturatedFattyAcids;
@@ -21,6 +22,7 @@ public class NutritionFacts
         Carbohydrate = carbohydrate;
         Protein = protein;
         Salt = salt;
+        Fiber = fiber;
     }
 
     public NutritionFacts(String ID) {

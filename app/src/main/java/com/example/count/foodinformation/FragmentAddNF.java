@@ -3,11 +3,13 @@ package com.example.count.foodinformation;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import Model.ContentDTO;
 import Model.LanguagesClass;
@@ -53,28 +55,46 @@ private Service service ;
             {
                 //String ingredients, NutritionFacts nutritionFact, ProductDTO product, String warnings, String cookingTips, String recommendations, String videoURL, LanguagesClass language, String details) {
                 ProductDTO productDTO = new ProductDTO(getArguments().getString("BARCODE"));
+
                 LanguagesClass languagesClass = new LanguagesClass(getArguments().getString("Language"+String.valueOf(i)));
-                NutritionFacts nutritionFacts = new NutritionFacts(txEnergy.getText().toString(),txFat.getText().toString(),txSaturatedFattyAcids.getText().toString(),txTransFattyAcids.getText().toString(),txCarbohydrate.getText().toString(),txProtein.getText().toString(),txSalt.getText().toString());
+                NutritionFacts nutritionFacts = new NutritionFacts(txEnergy.getText().toString(),txFat.getText().toString(),txSaturatedFattyAcids.getText().toString(),txTransFattyAcids.getText().toString(),txCarbohydrate.getText().toString(),txProtein.getText().toString(),txSalt.getText().toString(),txFiber.getText().toString());
                 ContentDTO contentDTO = new ContentDTO(getArguments().getString("Ingredients"+String.valueOf(i)),nutritionFacts,productDTO,getArguments().getString("Warnings"+String.valueOf(i)),getArguments().getString("Cooking Tips"+String.valueOf(i)),getArguments().getString("Recommendations"+String.valueOf(i)),"",languagesClass,getArguments().getString("Details"+String.valueOf(i)));
                 contentDTO.setCreatedUserId(FragmentLogin.UserID);
+             //   contentDTO.getProduct().setId(Integer.valueOf(getArguments().getString("BARCODE")));
                 service.CreateContentOfProduct(contentDTO).enqueue(new Callback<ContentDTO>() {
                     @Override
                     public void onResponse(Call<ContentDTO> call, Response<ContentDTO> response) {
                         if(response.isSuccessful())
                         {
 
+                            Bundle bundle = new Bundle();
+                            bundle.putString("BARCODE", response.body().getResult().getProduct().getBarcodeId());
+                            FragmentShowInfo fragmentShowInfo = new FragmentShowInfo();
+                            fragmentShowInfo.setArguments(bundle);
+                            setFragment(fragmentShowInfo);
+                            Toast.makeText(getContext(), "Content Added Succesfully", Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                        {
+                            Toast.makeText(getContext(), "Content Error", Toast.LENGTH_SHORT).show();
                         }
                     }
                     @Override
                     public void onFailure(Call<ContentDTO> call, Throwable t)
                     {
-
+                        Toast.makeText(getContext(), "Content Failure", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
 
         });
         return view;
+    }
+    private void setFragment(Fragment fragment)
+    {
+        FragmentTransaction fragmentTransaction  =  getActivity().getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.frame_layout,fragment);
+        fragmentTransaction.commit();
     }
 
 }

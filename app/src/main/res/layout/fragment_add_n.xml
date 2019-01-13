@@ -48,7 +48,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="9"
-        android:inputType="textMultiLine"
         android:text="Saturated Fatty Acids : "/>
 
         <EditText

@@ -103,7 +103,7 @@ public class FragmentSearch extends Fragment {
     {
         FragmentTransaction fragmentTransaction  =  getActivity().getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout,fragment);
-      //  fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 
