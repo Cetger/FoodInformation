@@ -137,31 +137,51 @@ Product Categori" />
 
 
                 <TextView
-                    android:id="@+id/sendcomment"
+                    android:id="@+id/commentsbaslık"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="Comments"
                     android:clickable="true"
-                    android:text="SEND COMMENT"
                     android:textColor="@color/colorPrimary"
                     android:textSize="20dp"
-                    android:textStyle="bold" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="OR"
-                    android:layout_margin="1dp"
+                    android:textStyle="bold"
+                    android:layout_margin="10dp"
                     />
 
-                <TextView
-                    android:id="@+id/opencomment"
+
+                <EditText
+                    android:id="@+id/commentedit"
+                    android:layout_width="250dp"
+                    android:layout_height="100dp"
+                    android:hint="Send Comment here"
+                    android:gravity="center"
+
+                    />
+
+                <Button
+                    android:id="@+id/buttonsend"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:clickable="true"
-                    android:text="LOOK COMMENTS"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
+                    android:text="SEND"
+                    android:layout_marginTop="5dp"
+                    />
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="2dp"
+                    android:src="@android:color/darker_gray"
+                    />
+
+                <ListView
+                    android:id="@+id/listcomment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    >
+
+
+                </ListView>
+
 
 
             </LinearLayout>

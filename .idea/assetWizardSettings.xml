@@ -78,7 +78,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/navigation/ic_check_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/image/ic_add_a_photo_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -88,8 +88,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="24e64d" />
-                            <entry key="outputName" value="check_icon" />
+                            <entry key="color" value="e6bf39" />
+                            <entry key="outputName" value="addphoto" />
                             <entry key="overrideSize" value="true" />
                             <entry key="sourceFile" value="C:\Users\junio" />
                           </map>

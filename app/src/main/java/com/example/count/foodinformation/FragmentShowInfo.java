@@ -1,12 +1,13 @@
 package com.example.count.foodinformation;
 
-import android.app.AlertDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,8 +28,11 @@ public class FragmentShowInfo extends Fragment {
     private Service service;
     private TextView txIngredients, txProductCategory, txProductName;
     PieChartView pieChartView;
+    ArrayList<CommentList> commentlistesi;
+    ListView listView;
+    private static CommentAdapter adapter;
+    private TextView comments;
 
-    private TextView sendcomment, opencomment;
 
     public FragmentShowInfo() {
         // Required empty public constructor
@@ -42,37 +46,33 @@ public class FragmentShowInfo extends Fragment {
         txIngredients = view.findViewById(R.id.txIngredients);
         //  txProductCategory = view.findViewById(R.id.txProductCategory);
         txProductName = view.findViewById(R.id.txProductName);
-        sendcomment = view.findViewById(R.id.sendcomment);
-        opencomment = view.findViewById(R.id.opencomment);
+        comments = view.findViewById(R.id.commentsbaslık);
+
+        listView=view.findViewById(R.id.listcomment);
+        commentlistesi=new ArrayList<>();
+        commentlistesi.add(new CommentList("ali","veli",2.0f));
+        commentlistesi.add(new CommentList("2","deneme",3.0f));
+        commentlistesi.add(new CommentList("3","farklı yorum",4.0f));
+        commentlistesi.add(new CommentList("4","ısrarcı",0.0f));
+
+        adapter=new CommentAdapter(getContext(),commentlistesi);
+        listView.setAdapter(adapter);
 
 
-        sendcomment.setOnClickListener(new View.OnClickListener() {
+
+
+        comments.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "Send Fonksiyonu ", Toast.LENGTH_SHORT).show();
-
-
-                LayoutInflater factory = LayoutInflater.from(getContext());
-
-                final View senddialogView = factory.inflate(R.layout.sendcomment, null);
-                final AlertDialog senddialog = new AlertDialog.Builder(getContext()).create();
-                senddialog.setView(senddialogView);
-
-                senddialog.show();
-
-
-
+                Intent goster=new Intent(getContext(),commetshow.class);
+                startActivity(goster);
             }
         });
 
 
-        opencomment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(), "Open Fonksiyonu", Toast.LENGTH_SHORT).show();
 
-            }
-        });
+
+
 
         pieChartView = view.findViewById(R.id.chart);
 
@@ -105,5 +105,7 @@ public class FragmentShowInfo extends Fragment {
 
         return view;
     }
+
+
 
 }

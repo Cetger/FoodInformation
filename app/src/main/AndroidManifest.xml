@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.count.foodinformation"
-    >
+    package="com.example.count.foodinformation">
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -33,6 +32,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.count.foodinformation.MainActivity" />
         </activity>
+        <activity android:name=".commetshow"></activity>
     </application>
 
 </manifest>

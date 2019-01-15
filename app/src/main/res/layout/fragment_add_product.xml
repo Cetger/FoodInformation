@@ -7,9 +7,37 @@
     android:gravity="center"
     tools:context=".FragmentAddProduct">
 
+    <LinearLayout
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_margin="10dp"
+        >
+
+        <ImageView
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:src="@drawable/addphoto"
+
+            />
+        <ImageView
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:src="@drawable/addphoto"
+
+            />
+        <ImageView
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:src="@drawable/addphoto"
+            />
+
+
+    </LinearLayout>
+
     <EditText
         android:id="@+id/txtBarcode2"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:ems="8"
         android:hint="BARCODE"
@@ -17,14 +45,14 @@
 
     <EditText
         android:id="@+id/txProductName2"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:ems="8"
         android:hint="Product Name" />
 
     <Spinner
         android:id="@+id/categorySpinner2"
-        android:layout_width="175dp"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"></Spinner>
     <LinearLayout
