@@ -1,10 +1,10 @@
 package com.example.count.foodinformation;
 
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -13,17 +13,15 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.zip.Inflater;
 
 import Model.BarcodeDTO;
 import Model.LanguagesClass;
 import Model.SearchByNameDTO;
-import Model.productNameClass;
 import Remote.Service;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -54,12 +52,19 @@ public class FragmentSearch extends Fragment {
         //gönderilecek=view.findViewById(R.id.gonderilecekveri);
         searchEdit=view.findViewById(R.id.searchedittext);
         listView= view.findViewById(R.id.itemlist);
+
+        AlertDialog.Builder alertDialogBuilder=new AlertDialog.Builder(getContext());
+        View dialogView=inflater.inflate(R.layout.language_custom,null);
+        alertDialogBuilder.setView(dialogView);
+AlertDialog alertDialog=alertDialogBuilder.create();
+
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-             
-
+                Toast.makeText(getContext(), "Tıklandı"+adapterView.getItemAtPosition(i).toString(), Toast.LENGTH_SHORT).show();
+                alertDialog.show();
                 service.GetLanguageListOfProductByBarcodeId(new BarcodeDTO(BarcodeList.get(i).toString())).enqueue(new Callback<LanguagesClass>() {
                     @Override
                     public void onResponse(Call<LanguagesClass> call, Response<LanguagesClass> response) {
