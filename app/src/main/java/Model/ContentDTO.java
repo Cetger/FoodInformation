@@ -15,7 +15,7 @@ public class ContentDTO  extends BaseDTO
     private LanguagesClass Language ;
     private String Details ;
     private List<CommentDTO> Comments ;
-    private int AverageVote ;
+    private String AverageVote ;
     private ContentDTO Result;
 
     public ContentDTO(String ingredients, NutritionFacts nutritionFact, ProductDTO product, String warnings, String cookingTips, String recommendations, String videoURL, LanguagesClass language, String details) {
@@ -116,6 +116,7 @@ public class ContentDTO  extends BaseDTO
         Details = details;
     }
 
+
     public List<CommentDTO> getComments() {
         return Comments;
     }
@@ -124,11 +125,11 @@ public class ContentDTO  extends BaseDTO
         Comments = comments;
     }
 
-    public int getAverageVote() {
+    public String getAverageVote() {
         return AverageVote;
     }
 
-    public void setAverageVote(int averageVote) {
+    public void setAverageVote(String averageVote) {
         AverageVote = averageVote;
     }
 }

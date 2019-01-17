@@ -16,9 +16,9 @@ public class ProductDTO  extends BaseDTO
     }
 
     //
-    private byte[] FirstImage ;
-    private byte[] SecondImage ;
-    private byte[] ThirdImage ;
+    private String FirstImage ;
+    private String SecondImage ;
+    private String ThirdImage ;
     private CategoryNameDTO ProductCategory;
     public String getBarcodeId() {
         return BarcodeId;
@@ -44,11 +44,11 @@ public class ProductDTO  extends BaseDTO
         ProductGroupId = productGroupId;
     }
 
-    public byte[] getFirstImage() {
+    public String getFirstImage() {
         return FirstImage;
     }
 
-    public void setFirstImage(byte[] firstImage) {
+    public void setFirstImage(String firstImage) {
         FirstImage = firstImage;
     }
 
@@ -56,7 +56,7 @@ public class ProductDTO  extends BaseDTO
         BarcodeId = barcodeId;
     }
 
-    public ProductDTO(String barcodeId, String productName, int productGroupId, byte[] firstImage, byte[] secondImage, byte[] thirdImage, CategoryNameDTO productCategoryDTO) {
+    public ProductDTO(String barcodeId, String productName, int productGroupId, String firstImage, String secondImage, String thirdImage, CategoryNameDTO productCategoryDTO) {
         BarcodeId = barcodeId;
         ProductName = productName;
         ProductGroupId = productGroupId;
@@ -66,19 +66,19 @@ public class ProductDTO  extends BaseDTO
         ProductCategory = productCategoryDTO;
     }
 
-    public byte[] getSecondImage() {
+    public String getSecondImage() {
         return SecondImage;
     }
 
-    public void setSecondImage(byte[] secondImage) {
+    public void setSecondImage(String secondImage) {
         SecondImage = secondImage;
     }
 
-    public byte[] getThirdImage() {
+    public String getThirdImage() {
         return ThirdImage;
     }
 
-    public void setThirdImage(byte[] thirdImage) {
+    public void setThirdImage(String thirdImage) {
         ThirdImage = thirdImage;
     }
 

@@ -1,26 +1,33 @@
 package com.example.count.foodinformation;
 
 
-import android.Manifest;
-import android.content.Context;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 
-import com.budiyev.android.codescanner.CodeScanner;
-import com.budiyev.android.codescanner.CodeScannerView;
-import com.budiyev.android.codescanner.DecodeCallback;
-import com.google.zxing.Result;
+import java.util.ArrayList;
+import java.util.zip.Inflater;
 
-import java.util.Objects;
-
-import androidx.annotation.NonNull;
+import Model.BarcodeDTO;
+import Model.LanguagesClass;
+import Model.SearchByNameDTO;
+import Model.productNameClass;
+import Remote.Service;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 /**
@@ -28,80 +35,117 @@ import androidx.annotation.NonNull;
  */
 public class FragmentSearch extends Fragment {
 
-    private static final int RC_PERMISSION = 10;
-    private CodeScanner mCodeScanner;
-    private boolean mPermissionGranted;
-    public boolean getBarcode;
-    public FragmentAdd fragmentAdd;
+
     public FragmentSearch() {
         // Required empty public constructor
     }
+
+    TextView gönderilecek;
+    EditText searchEdit;
+    ListView listView;
+    ArrayAdapter<String> veriAdaptoru;
+    private Service service ;
+    ArrayList BarcodeList;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = getView() != null ? getView() : inflater.inflate(R.layout.fragment_fragment_search, container, false);
-        mCodeScanner = new CodeScanner(Objects.requireNonNull(getContext()).getApplicationContext(), view.findViewById(R.id.scanner));
-        mCodeScanner.setDecodeCallback(result -> Objects.requireNonNull(getActivity()).runOnUiThread(() -> {
-            if (getBarcode) {
-                getBarcode=false;
-                Bundle bundle = new Bundle();
-                bundle.putString("BARCODE", result.getText());
-                 fragmentAdd.setArguments(bundle);
-                 FragmentSearch.this.setFragment(fragmentAdd);
-            } else {
-                Bundle bundle = new Bundle();
-                bundle.putString("BARCODE", result.getText());
-                FragmentShowInfo fragmentShowInfo = new FragmentShowInfo();
-                fragmentShowInfo.setArguments(bundle);
-                setFragment(fragmentShowInfo);
-                //ScanResultDialog dialog = new ScanResultDialog(FragmentSearch.this.getContext(), result);
-                //dialog.setOnDismissListener(d -> mCodeScanner.startPreview());
-                //dialog.show();
+        View view=inflater.inflate(R.layout.fragment_fragment_search, container, false);
+        //gönderilecek=view.findViewById(R.id.gonderilecekveri);
+        searchEdit=view.findViewById(R.id.searchedittext);
+        listView= view.findViewById(R.id.itemlist);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+             
+
+                service.GetLanguageListOfProductByBarcodeId(new BarcodeDTO(BarcodeList.get(i).toString())).enqueue(new Callback<LanguagesClass>() {
+                    @Override
+                    public void onResponse(Call<LanguagesClass> call, Response<LanguagesClass> response) {
+                        if(response.isSuccessful())
+                        {
+
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<LanguagesClass> call, Throwable t) {
+
+                    }
+                });
             }
-        }));
-        mCodeScanner.setErrorCallback(error -> Objects.requireNonNull(getActivity()).runOnUiThread(
-                () -> Toast.makeText(getContext(), "Scanner Error", Toast.LENGTH_LONG).show()));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (Objects.requireNonNull(getContext()).checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                mPermissionGranted = false;
-                requestPermissions(new String[] {Manifest.permission.CAMERA}, RC_PERMISSION);
-            } else {
-                mPermissionGranted = true;
+        });
+        ArrayList list = new ArrayList();
+        BarcodeList = new ArrayList();
+        service = Common.GetService();
+        searchEdit.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
             }
-        } else {
-            mPermissionGranted = true;
-        }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(charSequence.length()>2)
+                {
+                    service.SearchProductByName(String.valueOf(charSequence)).enqueue(new Callback<SearchByNameDTO>() {
+                        @Override
+                        public void onResponse(Call<SearchByNameDTO> call, Response<SearchByNameDTO> response) {
+                            if(response.isSuccessful())
+                            {
+                                list.clear();
+                                for(int i = 0 ; i < response.body().getResult().length;i++)
+                                {
+                                    list.add(response.body().getResult()[i].getProductName());
+                                    BarcodeList.add(response.body().getResult()[i].getBarcodeId());
+                                }
+                                veriAdaptoru= new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, android.R.id.text1,list);
+                                listView.setAdapter(veriAdaptoru);
+
+                            }
+                            else
+                            {
+                                list.clear();
+                                if(veriAdaptoru!= null)
+                                veriAdaptoru.clear();
+                                BarcodeList.clear();
+
+                            }
+                        }
+                        @Override
+                        public void onFailure(Call<SearchByNameDTO> call, Throwable t)
+                        {
+                            list.clear();
+                            BarcodeList.clear();
+                            if(veriAdaptoru!= null)
+                            veriAdaptoru.clear();
+                        }
+                    });
+
+                }
+                else
+                {
+                    list.clear();
+                    if(veriAdaptoru!= null)
+                    if(veriAdaptoru!= null)
+                    veriAdaptoru.clear();
+
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
         return view;
-    }
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-        if (requestCode == RC_PERMISSION) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                mPermissionGranted = true;
-                mCodeScanner.startPreview();
-            } else {
-                mPermissionGranted = false;
-            }
-        }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (mPermissionGranted) {
-            mCodeScanner.startPreview();
-        }
-    }
-
-    @Override
-    public void onPause() {
-        mCodeScanner.releaseResources();
-        super.onPause();
     }
     private void setFragment(Fragment fragment)
     {
-        FragmentTransaction fragmentTransaction  =  getActivity().getSupportFragmentManager().beginTransaction();
+        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout,fragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();

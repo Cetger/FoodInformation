@@ -78,7 +78,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/image/ic_add_a_photo_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_search_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -88,8 +88,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="e6bf39" />
-                            <entry key="outputName" value="addphoto" />
+                            <entry key="color" value="989898" />
+                            <entry key="outputName" value="search" />
                             <entry key="overrideSize" value="true" />
                             <entry key="sourceFile" value="C:\Users\junio" />
                           </map>

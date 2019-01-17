@@ -112,7 +112,6 @@ public class FragmentAddContent extends Fragment {
                             Ingredients[ItemCount] = new EditText(getContext());
                             Ingredients[ItemCount].setEms(10);
                             Ingredients[ItemCount].setHint(lclist2.get(i).toUpperCase()+":");
-                            Ingredients[ItemCount].setInputType(InputType.TYPE_TEXT_FLAG_IME_MULTI_LINE);
                             Ingredients[ItemCount].setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT));
                             layout.addView(Ingredients[ItemCount]);
                             ItemCount++;

@@ -52,14 +52,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private BottomNavigationView nav;
     private FrameLayout frameLayout;
     public static MainActivity mainActivity;
-    public  FragmentAdd fragmentAdd;
     public FragmentLogin fragmentLogin;
-    public FragmentSearch fragmentSearch;
     public FragmentProfile fragmentProfile;
+    public  Scanner scanner ;
     public static Fragment active;
     private Spinner spinner;
     public static String Language;
-
     public static List<String> LanguageCodes = new ArrayList<>();
     public static Map<String,String> Errors = new TreeMap<>();
     public static Map<String,String> Categories = new TreeMap<>();
@@ -109,28 +107,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        findViewById(R.id.btnSend).setOnClickListener(this);
         mainActivity = this;
         nav = findViewById(R.id.nav);
-        fragmentAdd = new FragmentAdd();
         fragmentLogin = new FragmentLogin();
-        fragmentSearch = new FragmentSearch();
         fragmentProfile = new FragmentProfile();
+        scanner = new Scanner();
 
         findViewById(R.id.btnStart).setOnClickListener(this);
 
         nav.setOnNavigationItemSelectedListener(menuItem -> {
             findViewById(R.id.lyWelcome).setVisibility(View.INVISIBLE);
-            if(fragmentSearch.getBarcode)fragmentSearch.getBarcode=false;
+            if(scanner.getBarcode)scanner.getBarcode=false;
             switch (menuItem.getItemId()) {
                 case R.id.nav_login:
                     if(!Common.Logon)
-                        setFragment(fragmentLogin);
+                        setFragment(new FragmentSearch());
                     else
                         setFragment(fragmentProfile);
                     return true;
                 case R.id.nav_search:
-                        setFragment(fragmentSearch);
-                    return true;
-                case R.id.nav_add:
-                        setFragment(fragmentAdd);
+                    setFragment(scanner);
                     return true;
                 default:
                     return false;
@@ -261,6 +255,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout,fragment);
+        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 

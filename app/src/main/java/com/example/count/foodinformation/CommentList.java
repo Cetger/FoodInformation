@@ -23,4 +23,16 @@ public class CommentList {
     public Float getOy() {
         return oy;
     }
+
+    public void setYazarid(String yazarid) {
+        this.yazarid = yazarid;
+    }
+
+    public void setYorum(String yorum) {
+        this.yorum = yorum;
+    }
+
+    public void setOy(Float oy) {
+        this.oy = oy;
+    }
 }

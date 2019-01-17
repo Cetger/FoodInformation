@@ -145,7 +145,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
     {
 
         fragmentTransaction.replace(R.id.frame_layout,fragment);
-        fragmentTransaction.addToBackStack(null);
+        //fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 

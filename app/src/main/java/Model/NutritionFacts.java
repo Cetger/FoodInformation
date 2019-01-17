@@ -62,6 +62,14 @@ public class NutritionFacts
         SaturatedFattyAcids = saturatedFattyAcids;
     }
 
+    public String getFiber() {
+        return Fiber;
+    }
+
+    public void setFiber(String fiber) {
+        Fiber = fiber;
+    }
+
     public String getTransFattyAcids() {
         return TransFattyAcids;
     }

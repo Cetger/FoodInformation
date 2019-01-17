@@ -66,7 +66,6 @@ private Service service ;
                     public void onResponse(Call<ContentDTO> call, Response<ContentDTO> response) {
                         if(response.isSuccessful())
                         {
-
                             Bundle bundle = new Bundle();
                             bundle.putString("BARCODE", response.body().getResult().getProduct().getBarcodeId());
                             FragmentShowInfo fragmentShowInfo = new FragmentShowInfo();

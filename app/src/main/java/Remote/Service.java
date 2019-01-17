@@ -14,13 +14,17 @@ import Model.Parameter;
 import Model.PostResponse;
 import Model.ProductDTO;
 import Model.ProductDTO2;
+import Model.SearchByNameDTO;
 import Model.UpdateCategoryNameDTO;
 import Model.UserDTO;
 import Model.Values;
+import Model.productNameClass;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface Service
 {
@@ -35,6 +39,9 @@ public interface Service
 Call<ProductDTO> CreateProduct(@Body ProductDTO value);
   @POST("/api/Product/GetProductNameByBarcodeId/")
   Call<ProductDTO> GetProductNameByBarcodeId(@Body BarcodeDTO value);
+  @POST("/api/Product/SearchProductByName/")
+  Call<SearchByNameDTO> SearchProductByName(@Query("productname") String name);
+
 
 
 
