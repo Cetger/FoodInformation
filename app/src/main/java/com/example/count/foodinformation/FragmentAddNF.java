@@ -68,7 +68,7 @@ private Service service ;
                         {
                             Bundle bundle = new Bundle();
                             bundle.putString("BARCODE", response.body().getResult().getProduct().getBarcodeId());
-                            FragmentShowInfo fragmentShowInfo = new FragmentShowInfo();
+                            FragmentShowInfo fragmentShowInfo = MainActivity.mainActivity.fragmentShowInfo;
                             fragmentShowInfo.setArguments(bundle);
                             setFragment(fragmentShowInfo);
                             Toast.makeText(getContext(), "Content Added Succesfully", Toast.LENGTH_SHORT).show();

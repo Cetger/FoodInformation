@@ -4,8 +4,8 @@ import java.util.List;
 
 public class ContentDTO  extends BaseDTO
 {
-    public String Ingredients ;
-
+    private String Ingredients ;
+    private String ID;
     private NutritionFacts NutritionFact ;
     private ProductDTO Product ;
     private String Warnings ;
@@ -14,7 +14,7 @@ public class ContentDTO  extends BaseDTO
     private String VideoURL ;
     private LanguagesClass Language ;
     private String Details ;
-    private List<CommentDTO> Comments ;
+    private CommentDTO [] Comments;
     private String AverageVote ;
     private ContentDTO Result;
 
@@ -117,11 +117,20 @@ public class ContentDTO  extends BaseDTO
     }
 
 
-    public List<CommentDTO> getComments() {
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
+
+
+    public CommentDTO[] getComments() {
         return Comments;
     }
 
-    public void setComments(List<CommentDTO> comments) {
+    public void setComments(CommentDTO[] comments) {
         Comments = comments;
     }
 

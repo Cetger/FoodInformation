@@ -53,10 +53,10 @@ public class FragmentShowInfo extends Fragment {
     ArrayList<CommentList> commentlistesi;
     ListView listView;
     ImageView IMG1,IMG2,IMG3,IMGMain;
-    AppCompatRatingBar ratingBar;
+    AppCompatRatingBar ratingBar,ratingBar2;
     private static CommentAdapter adapter;
-    private TextView comments;
-
+    private TextView comments,txRate;
+    private String ContentID;
 
     public FragmentShowInfo() {
         // Required empty public constructor
@@ -79,12 +79,15 @@ public class FragmentShowInfo extends Fragment {
         IMG1=view.findViewById(R.id.IMGShow1);
         IMG2=view.findViewById(R.id.IMGShow2);
         IMG3=view.findViewById(R.id.IMGShow3);
+        txRate=view.findViewById(R.id.txRate);
         IMGMain=view.findViewById(R.id.IMGShowMain);
-
+        if(FragmentLogin.UserID ==0)
+            view.findViewById(R.id.CommentLayout).setVisibility(View.INVISIBLE);
         IMG1.setOnClickListener(view13 -> IMGMain.setImageDrawable(IMG1.getDrawable()));
         IMG2.setOnClickListener(view12 -> IMGMain.setImageDrawable(IMG2.getDrawable()));
         IMG3.setOnClickListener(view1 -> IMGMain.setImageDrawable(IMG3.getDrawable()));
         ratingBar = view.findViewById(R.id.Rate);
+        ratingBar2 = view.findViewById(R.id.Rate2);
 
 
         comments.setOnClickListener(v -> {
@@ -95,10 +98,8 @@ public class FragmentShowInfo extends Fragment {
         pieChartView = view.findViewById(R.id.chart);
 
         List<SliceValue> pieData = new ArrayList<>();
-        PieChartData pieChartData;
-        pieChartData = new PieChartData(pieData);
-        pieChartData.setHasLabels(true).setValueLabelTextSize(14);
-        pieChartView.setPieChartData(pieChartData);
+        final PieChartData[] pieChartData = new PieChartData[1];
+
         assert getArguments() != null;
         String barcode = getArguments().getString("BARCODE");
         String language = getArguments().getString("LANGUAGE","");
@@ -114,6 +115,7 @@ public class FragmentShowInfo extends Fragment {
                 if (response.isSuccessful())  {
                     assert response.body() != null;
                     Bitmap  bitmap;
+                    ContentID = String.valueOf(response.body().getResult().getId());
                     if(response.body().getResult().getProduct().getFirstImage()!= null){
                          bitmap = getBitmapFromString(response.body().getResult().getProduct().getFirstImage());
                         IMG1.setImageBitmap(bitmap);
@@ -128,20 +130,25 @@ public class FragmentShowInfo extends Fragment {
                         IMG3.setImageBitmap(bitmap);
                     }
                     txDetails.setText(response.body().getResult().getDetails());
-                    ratingBar.setRating(Float.valueOf(response.body().getResult().getAverageVote()));
+                    ratingBar.setRating(Float.valueOf(response.body().getResult().getAverageVote())/2);
+                    txRate.setText(String.valueOf(Float.valueOf(response.body().getResult().getAverageVote())/2));
                     pieData.add(new SliceValue(Float.valueOf(response.body().getResult().getNutritionFact().getEnergy()), Color.parseColor("#d32f2f")).setLabel("Energy"));
                     pieData.add(new SliceValue(Float.valueOf(response.body().getResult().getNutritionFact().getFat()), Color.parseColor("#f57c00")).setLabel("Fat"));
                     pieData.add(new SliceValue(Float.valueOf(response.body().getResult().getNutritionFact().getSaturatedFattyAcids()), Color.parseColor("#d4e157")).setLabel("SaturatedFattyAcids"));
-                    pieData.add(new SliceValue(Float.valueOf(response.body().getResult().getNutritionFact().getTransFattyAcids()), Color.parseColor("#d32f2f")).setLabel("TransFattyAcids"));
-                    pieData.add(new SliceValue(Float.valueOf(response.body().getResult().getNutritionFact().getCarbohydrate()), Color.parseColor("#f57c00")).setLabel("Carbohydrate"));
-                    pieData.add(new SliceValue(Float.valueOf(response.body().getResult().getNutritionFact().getFiber()), Color.parseColor("#d4e157")).setLabel("Fiber"));
-                    pieData.add(new SliceValue(Float.valueOf(response.body().getResult().getNutritionFact().getProtein()), Color.parseColor("#d32f2f")).setLabel("Protein"));
-                    pieData.add(new SliceValue(Float.valueOf(response.body().getResult().getNutritionFact().getSalt()), Color.parseColor("#f57c00")).setLabel("Salt"));
+                    pieData.add(new SliceValue(Float.valueOf(response.body().getResult().getNutritionFact().getTransFattyAcids()), Color.parseColor("#3498DB")).setLabel("TransFattyAcids"));
+                    pieData.add(new SliceValue(Float.valueOf(response.body().getResult().getNutritionFact().getCarbohydrate()), Color.parseColor("#239B56")).setLabel("Carbohydrate"));
+                    pieData.add(new SliceValue(Float.valueOf(response.body().getResult().getNutritionFact().getFiber()), Color.parseColor("#6C3483")).setLabel("Fiber"));
+                    pieData.add(new SliceValue(Float.valueOf(response.body().getResult().getNutritionFact().getProtein()), Color.parseColor("#C39BD3")).setLabel("Protein"));
+                    pieData.add(new SliceValue(Float.valueOf(response.body().getResult().getNutritionFact().getSalt()), Color.parseColor("#F1C40F")).setLabel("Salt"));
+                    pieChartData[0] = new PieChartData(pieData);
+                    pieChartData[0].setHasLabels(true).setValueLabelTextSize(14);
+                    pieChartView.setPieChartData(pieChartData[0]);
                     txIngredients.setText(response.body().getResult().getIngredients());
                     txProductName.setText(response.body().getResult().getProduct().getProductName() );//+ System.lineSeparator()+response.body().getResult().getProduct().getProductCategoryDTO().getCategoryName());
                     commentlistesi=new ArrayList<>();
-                    for(int i = 0 ; i<response.body().getResult().getComments().size();i++)
-                        commentlistesi.add(new CommentList("Hüseyin",response.body().getComments().get(i).getUserComment(),2.0f));
+                    if(response.body().getResult().getComments()!=null)
+                    for(int i = 0 ; i<response.body().getResult().getComments().length;i++)
+                        commentlistesi.add(new CommentList(response.body().getResult().getComments()[i].getUsername(),response.body().getResult().getComments()[i].getUserComment(),2.0f));
                     adapter=new CommentAdapter(view.getContext(),commentlistesi);
                     listView.setAdapter(adapter);
 
@@ -182,6 +189,7 @@ public class FragmentShowInfo extends Fragment {
                                         setFragment(finalFragment);
                                     else
                                     {
+                                        MainActivity.mainActivity.fragmentLogin.setArguments(bundle);
                                         MainActivity.mainActivity.fragmentLogin.addInfo = true;
                                         setFragment(MainActivity.mainActivity.fragmentLogin);
                                     }
@@ -210,15 +218,31 @@ public class FragmentShowInfo extends Fragment {
         });
 
         btnComment.setOnClickListener(view14 -> {
-            service.AddComment(new CommentDTO(txComment.getText().toString())).enqueue(new Callback<CommentDTO>() {
+            service.AddVote(new VoteDTO((int) (ratingBar2.getRating()*2),barcode,Integer.valueOf(ContentID))).enqueue(new Callback<VoteDTO>() {
+                @Override
+                public void onResponse(Call<VoteDTO> call, Response<VoteDTO> response) {
+                    if(response.isSuccessful())
+                        Toast.makeText(getContext(),"Rate added succesfully",Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(getContext(),"You have already voted this product!",Toast.LENGTH_SHORT).show();//Toast.makeText(getContext(),MainActivity.GetErrorMessage(response),Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onFailure(Call<VoteDTO> call, Throwable t) {
+
+                }
+            });
+            if (txComment.getText().toString().equals(""))
+                return;
+            service.AddComment(new CommentDTO(txComment.getText().toString(),ContentID,FragmentLogin.UserID)).enqueue(new Callback<CommentDTO>() {
                 @Override
                 public void onResponse(Call<CommentDTO> call, Response<CommentDTO> response) {
                     if(response.isSuccessful())
                     {
                         Toast.makeText(getContext(),"Comment added succesfully",Toast.LENGTH_SHORT).show();
+
                     }
                 }
-
                 @Override
                 public void onFailure(Call<CommentDTO> call, Throwable t) {
 

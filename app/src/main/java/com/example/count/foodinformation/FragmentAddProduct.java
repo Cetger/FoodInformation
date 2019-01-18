@@ -189,6 +189,7 @@ public class FragmentAddProduct extends Fragment {
                     MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             intent.putExtra(EXTRA_SIZE_LIMIT,5*1024*1024);
+            intent.putExtra(MediaStore.EXTRA_SHOW_ACTION_ICONS,1);
             intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
             startActivityForResult(intent, 0);
             IMGNumber = Nr;
@@ -246,7 +247,7 @@ public class FragmentAddProduct extends Fragment {
         fragmentTransaction.commit();
     }
     private String getStringFromBitmap(Bitmap bitmapPicture) {
-        final int COMPRESSION_QUALITY = 40;
+        final int COMPRESSION_QUALITY = 10;
         String encodedImage;
         ByteArrayOutputStream byteArrayBitmapStream = new ByteArrayOutputStream();
         bitmapPicture.compress(Bitmap.CompressFormat.JPEG, COMPRESSION_QUALITY, byteArrayBitmapStream);

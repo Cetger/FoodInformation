@@ -1,14 +1,16 @@
 package Model;
-public class CommentDTO
+public class CommentDTO extends BaseDTO
 {
     private String UserComment ;
-    private int ProductContentId ;
+    private String ProductContentId ;
     private String Username ;
     private String Name ;
     private String Surname ;
 
-    public CommentDTO(String userComment) {
+    public CommentDTO(String userComment,String productContentId,int userID) {
         UserComment = userComment;
+        ProductContentId=productContentId;
+        super.CreatedUserId = userID;
     }
 
     public String getUserComment() {
@@ -19,11 +21,11 @@ public class CommentDTO
         UserComment = userComment;
     }
 
-    public int getProductContentId() {
+    public String getProductContentId() {
         return ProductContentId;
     }
 
-    public void setProductContentId(int productContentId) {
+    public void setProductContentId(String productContentId) {
         ProductContentId = productContentId;
     }
 

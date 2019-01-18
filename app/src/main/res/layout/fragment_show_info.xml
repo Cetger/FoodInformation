@@ -88,8 +88,8 @@ Product Categori" />
 
                 <lecho.lib.hellocharts.view.PieChartView
                     android:id="@+id/chart"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp" />
+                    android:layout_width="200dp"
+                    android:layout_height="200dp" />
 
             </LinearLayout>
 
@@ -103,13 +103,30 @@ Product Categori" />
                 android:layout_marginBottom="20dp"
                 android:orientation="vertical"
                 >
-                <android.support.v7.widget.AppCompatRatingBar
-                    android:id="@+id/Rate"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:numStars="5"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="2dp"/>
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/txRate"
+                        android:text="0.00"
+                        android:ems="3"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textSize="23sp"
+                        />
+                    <android.support.v7.widget.AppCompatRatingBar
+                        android:id="@+id/Rate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:numStars="5"
+                        android:layout_gravity="center"
+                        android:isIndicator="true"
+                        android:layout_marginTop="2dp"/>
+                </LinearLayout>
+
 
                 <TextView
                     android:layout_margin="5dp"
@@ -140,6 +157,7 @@ Product Categori" />
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
+                android:id="@+id/CommentLayout"
                 android:orientation="vertical">
 
 
@@ -164,7 +182,13 @@ Product Categori" />
                     android:hint="Send Comment here"
 
                     />
-
+                <android.support.v7.widget.AppCompatRatingBar
+                    android:id="@+id/Rate2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:numStars="5"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="2dp"/>
                 <Button
                     android:id="@+id/btnComment"
                     android:layout_width="wrap_content"

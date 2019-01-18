@@ -1,5 +1,7 @@
 package Remote;
 
+import com.example.count.foodinformation.VoteDTO;
+
 import Model.BarcodeDTO;
 import Model.CategoryClass;
 import Model.CategoryLanguage;
@@ -82,6 +84,10 @@ Call<ProductDTO> CreateProduct(@Body ProductDTO value);
   @POST("/api/Content/CreateContentOfProduct/")
   Call<ContentDTO> CreateContentOfProduct(@Body ContentDTO contentDTO);
 
+
+   //******VoteController***********
+   @POST("/api/Vote/AddVote/")
+   Call<VoteDTO> AddVote(@Body VoteDTO value);
 
    //******CategoryController***********
 

@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static MainActivity mainActivity;
     public FragmentLogin fragmentLogin;
     public FragmentProfile fragmentProfile;
+    public FragmentShowInfo fragmentShowInfo;
     public  Scanner scanner ;
     public static Fragment active;
     private Spinner spinner;
@@ -109,6 +110,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         nav = findViewById(R.id.nav);
         fragmentLogin = new FragmentLogin();
         fragmentProfile = new FragmentProfile();
+        fragmentShowInfo = new FragmentShowInfo();
         scanner = new Scanner();
 
         findViewById(R.id.btnStart).setOnClickListener(this);

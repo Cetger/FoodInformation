@@ -27,7 +27,6 @@ public class CommentAdapter extends ArrayAdapter<CommentList> {
     private static class ViewHolder {
         TextView commentyazar;
         TextView comment;
-        RatingBar ratingvote;
     }
 
 
@@ -39,22 +38,16 @@ public class CommentAdapter extends ArrayAdapter<CommentList> {
             holder= new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.list_view_item,parent, false);
-
             holder.commentyazar = (TextView) convertView.findViewById(R.id.yazarid);
             holder.comment = (TextView) convertView.findViewById(R.id.yorumid);
-            holder.ratingvote = (RatingBar) convertView.findViewById(R.id.starid);
             convertView.setTag(holder);
-
         } else {
-            //Get viewholder we already created
             holder = (ViewHolder) convertView.getTag();
         }
-
         CommentList comment = comments.get(position);
         if (comment != null) {
             holder.commentyazar.setText(comment.getYazarid());
             holder.comment.setText(comment.getYorum());
-            holder.ratingvote.setRating(comment.getOy());
         }
         return convertView;
     }

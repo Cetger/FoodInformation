@@ -49,7 +49,7 @@ public class Scanner extends Fragment implements ZXingScannerView.ResultHandler 
             } else {
                 Bundle bundle = new Bundle();
                 bundle.putString("BARCODE", rawResult.getText());
-                FragmentShowInfo fragmentShowInfo = new FragmentShowInfo();
+                FragmentShowInfo fragmentShowInfo = MainActivity.mainActivity.fragmentShowInfo;
                 fragmentShowInfo.setArguments(bundle);
                 setFragment(fragmentShowInfo);
             }
