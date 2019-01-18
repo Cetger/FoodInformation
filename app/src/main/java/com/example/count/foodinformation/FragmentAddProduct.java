@@ -48,6 +48,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.app.Activity.RESULT_OK;
+import static android.provider.MediaStore.EXTRA_SIZE_LIMIT;
 import static com.example.count.foodinformation.MainActivity.Categories;
 import static com.example.count.foodinformation.MainActivity.arrayList;
 import static com.example.count.foodinformation.MainActivity.mainActivity;
@@ -145,15 +146,11 @@ public class FragmentAddProduct extends Fragment {
             arrayList.add("Diğer");
             categorySpinner.setAdapter(new ArrayAdapter<>(getContext(), support_simple_spinner_dropdown_item, arrayList));
         }
-        imgScan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view)
-            {
-                Scanner scanner =  mainActivity.scanner;
-                scanner.getBarcode = true;
-                scanner.fragmentAdd = FragmentAddProduct.this;
-                setFragment(scanner);
-            }
+        imgScan.setOnClickListener(view15 -> {
+            Scanner scanner =  mainActivity.scanner;
+            scanner.getBarcode = true;
+            scanner.fragmentAdd = FragmentAddProduct.this;
+            setFragment(scanner);
         });
         Bundle bundle = this.getArguments();
         if (bundle != null)
@@ -191,6 +188,7 @@ public class FragmentAddProduct extends Fragment {
             imageUri = getActivity().getContentResolver().insert(
                     MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            intent.putExtra(EXTRA_SIZE_LIMIT,5*1024*1024);
             intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
             startActivityForResult(intent, 0);
             IMGNumber = Nr;
@@ -248,11 +246,10 @@ public class FragmentAddProduct extends Fragment {
         fragmentTransaction.commit();
     }
     private String getStringFromBitmap(Bitmap bitmapPicture) {
-        final int COMPRESSION_QUALITY = 100;
+        final int COMPRESSION_QUALITY = 40;
         String encodedImage;
         ByteArrayOutputStream byteArrayBitmapStream = new ByteArrayOutputStream();
-        bitmapPicture.compress(Bitmap.CompressFormat.PNG, COMPRESSION_QUALITY,
-                byteArrayBitmapStream);
+        bitmapPicture.compress(Bitmap.CompressFormat.JPEG, COMPRESSION_QUALITY, byteArrayBitmapStream);
         byte[] b = byteArrayBitmapStream.toByteArray();
         encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
         return encodedImage;

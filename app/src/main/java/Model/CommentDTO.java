@@ -1,15 +1,14 @@
 package Model;
-public class CommentDTO {
+public class CommentDTO
+{
     private String UserComment ;
     private int ProductContentId ;
-    private ContentDTO[] results;
+    private String Username ;
+    private String Name ;
+    private String Surname ;
 
-    public ContentDTO[] getResults() {
-        return results;
-    }
-
-    public void setResults(ContentDTO[] results) {
-        this.results = results;
+    public CommentDTO(String userComment) {
+        UserComment = userComment;
     }
 
     public String getUserComment() {
@@ -26,5 +25,29 @@ public class CommentDTO {
 
     public void setProductContentId(int productContentId) {
         ProductContentId = productContentId;
+    }
+
+    public String getUsername() {
+        return Username;
+    }
+
+    public void setUsername(String username) {
+        Username = username;
+    }
+
+    public String getName() {
+        return Name;
+    }
+
+    public void setName(String name) {
+        Name = name;
+    }
+
+    public String getSurname() {
+        return Surname;
+    }
+
+    public void setSurname(String surname) {
+        Surname = surname;
     }
 }

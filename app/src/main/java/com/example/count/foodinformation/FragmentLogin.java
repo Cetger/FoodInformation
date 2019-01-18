@@ -39,6 +39,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
     private TextView txStatus;
     private CheckBox checkBox;
     public static int UserID;
+    public boolean addInfo = false;
     FragmentTransaction fragmentTransaction;
     public FragmentLogin() {
         // Required empty public constructor
@@ -108,9 +109,19 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
                             }
                         });
                        // UserID = response.body().getCreatedUserId();
-                        FragmentProfile fragmentProfile = new FragmentProfile();
+
                        // bundle.putString("Name",response.body().getUsernameOrEmail());
-                        setFragment(new FragmentAddProduct());//setFragment(fragmentProfile);
+                        if(addInfo)
+                        {
+                            addInfo=false;
+                            FragmentAddProduct fragmentAddProduct =  new FragmentAddProduct();
+                            Bundle bundle = new Bundle();
+                            bundle.putString("BARCODE",getArguments().getString("BARCODE"));
+                            fragmentAddProduct.setArguments(bundle);
+                            setFragment(fragmentAddProduct);//setFragment(fragmentProfile);
+                        }
+                        else
+                            setFragment(new FragmentProfile());//setFragment(fragmentProfile);
                     }
                     else
                     {

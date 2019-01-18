@@ -14,10 +14,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import Model.BarcodeDTO;
 import Model.LanguagesClass;
@@ -26,6 +28,8 @@ import Remote.Service;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.example.count.foodinformation.R.layout.support_simple_spinner_dropdown_item;
 
 
 /**
@@ -42,9 +46,11 @@ public class FragmentSearch extends Fragment {
     EditText searchEdit;
     ListView listView;
     ArrayAdapter<String> veriAdaptoru;
+    List<String> languageList;
+    ArrayAdapter<CharSequence> arrayAdapter;
     private Service service ;
     ArrayList BarcodeList;
-
+    boolean first =false;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -52,35 +58,73 @@ public class FragmentSearch extends Fragment {
         //gönderilecek=view.findViewById(R.id.gonderilecekveri);
         searchEdit=view.findViewById(R.id.searchedittext);
         listView= view.findViewById(R.id.itemlist);
-
+        languageList = new ArrayList<>();
+        arrayAdapter= new ArrayAdapter<CharSequence>(getContext(),support_simple_spinner_dropdown_item);
         AlertDialog.Builder alertDialogBuilder=new AlertDialog.Builder(getContext());
         View dialogView=inflater.inflate(R.layout.language_custom,null);
         alertDialogBuilder.setView(dialogView);
-AlertDialog alertDialog=alertDialogBuilder.create();
-
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        Spinner spinner = dialogView.findViewById(R.id.spinnerLanguages);
+        AlertDialog alertDialog=alertDialogBuilder.create();
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if(first)
+                {
+                    first = false;
+                    return;
+                }
+                Bundle bundle = new Bundle();
+                FragmentShowInfo fragmentShowInfo = new FragmentShowInfo();
+                bundle.putString("BARCODE",BarcodeList.get(i).toString());
+                bundle.putString("LANGUAGE",languageList.get(i).toString());
+                fragmentShowInfo.setArguments(bundle);
+                setFragment(fragmentShowInfo);
+                alertDialog.hide();
+            }
 
-                Toast.makeText(getContext(), "Tıklandı"+adapterView.getItemAtPosition(i).toString(), Toast.LENGTH_SHORT).show();
-                alertDialog.show();
-                service.GetLanguageListOfProductByBarcodeId(new BarcodeDTO(BarcodeList.get(i).toString())).enqueue(new Callback<LanguagesClass>() {
-                    @Override
-                    public void onResponse(Call<LanguagesClass> call, Response<LanguagesClass> response) {
-                        if(response.isSuccessful())
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        listView.setOnItemClickListener((adapterView, view1, i, l) -> {
+
+            Toast.makeText(getContext(), "Tıklandı"+adapterView.getItemAtPosition(i).toString(), Toast.LENGTH_SHORT).show();
+
+            service.GetLanguageListOfProductByBarcodeId(new BarcodeDTO(BarcodeList.get(i).toString())).enqueue(new Callback<LanguagesClass>() {
+                @Override
+                public void onResponse(Call<LanguagesClass> call, Response<LanguagesClass> response) {
+                    if(response.isSuccessful())
+                    {
+                        arrayAdapter.clear();
+                        languageList.clear();
+                        if(response.body().getResult().length>1) {
+                            for (int i = 0; i < response.body().getResult().length; i++) {
+                                arrayAdapter.add(response.body().getResult()[i].getLanguageName());
+                                languageList.add(response.body().getResult()[i].getLanguageCode());
+                            }
+
+                            first=true;
+                            spinner.setAdapter(arrayAdapter);
+                            alertDialog.show();
+                        }
+                        else if(response.body().getResult().length== 1)
                         {
-
-
+                            Bundle bundle = new Bundle();
+                            FragmentShowInfo fragmentShowInfo = new FragmentShowInfo();
+                            bundle.putString("BARCODE",BarcodeList.get(0).toString());
+                            bundle.putString("LANGUAGE",response.body().getResult()[0].getLanguageName());
+                            fragmentShowInfo.setArguments(bundle);
+                            setFragment(fragmentShowInfo);
                         }
                     }
+                }
 
-                    @Override
-                    public void onFailure(Call<LanguagesClass> call, Throwable t) {
+                @Override
+                public void onFailure(Call<LanguagesClass> call, Throwable t) {
 
-                    }
-                });
-            }
+                }
+            });
         });
         ArrayList list = new ArrayList();
         BarcodeList = new ArrayList();

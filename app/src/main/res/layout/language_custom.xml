@@ -14,10 +14,10 @@
         />
 
     <Spinner
-        android:layout_margin="5dp"
+        android:id="@+id/spinnerLanguages"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp">
 
 
     </Spinner>

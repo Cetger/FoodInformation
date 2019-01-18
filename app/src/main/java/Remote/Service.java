@@ -4,6 +4,7 @@ import Model.BarcodeDTO;
 import Model.CategoryClass;
 import Model.CategoryLanguage;
 import Model.CategoryNameDTO;
+import Model.CommentDTO;
 import Model.ContentDTO;
 import Model.CreateUserClass;
 import Model.ErrorClass;
@@ -69,6 +70,9 @@ Call<ProductDTO> CreateProduct(@Body ProductDTO value);
 
   @POST("/api/Error/GetErrorList/")
   Call<ErrorClass> Errors();
+  //******CommentController***********
+  @POST("/api/Comment/AddComment/")
+  Call<CommentDTO> AddComment(@Body CommentDTO value);
 
     //******ContentController***********
 
