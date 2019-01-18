@@ -96,6 +96,14 @@
             android:clickable="true"/>
     </LinearLayout>
 
+    <EditText
+        android:id="@+id/txCategory"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:ems="8"
+        android:visibility="invisible"
+        android:hint="Category Name" />
+
     <Button
         android:id="@+id/btnNext"
         android:layout_width="wrap_content"

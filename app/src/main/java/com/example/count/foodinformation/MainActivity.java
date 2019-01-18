@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public FragmentLogin fragmentLogin;
     public FragmentProfile fragmentProfile;
     public FragmentShowInfo fragmentShowInfo;
+    public FragmentSearch fragmentSearch;
     public  Scanner scanner ;
     public static Fragment active;
     private Spinner spinner;
@@ -111,6 +112,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         fragmentLogin = new FragmentLogin();
         fragmentProfile = new FragmentProfile();
         fragmentShowInfo = new FragmentShowInfo();
+        fragmentSearch = new FragmentSearch();
         scanner = new Scanner();
 
         findViewById(R.id.btnStart).setOnClickListener(this);
@@ -120,14 +122,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if(scanner.getBarcode)scanner.getBarcode=false;
             switch (menuItem.getItemId()) {
                 case R.id.nav_login:
-                    if(!Common.Logon)
-                        setFragment(new FragmentSearch());
+                    if(FragmentLogin.UserID==0)
+                        setFragment(fragmentLogin);
                     else
                         setFragment(fragmentProfile);
                     return true;
-                case R.id.nav_search:
+                case R.id.nav_scan:
                     setFragment(scanner);
                     return true;
+                case R.id.nav_search:
+                    setFragment(fragmentSearch);
+                        return true;
                 default:
                     return false;
             }

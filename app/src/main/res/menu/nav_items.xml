@@ -7,12 +7,11 @@
         android:icon="@drawable/baseline_account_circle_black_48dp"
         android:title="@string/nav_login" />
     <item
-        android:id="@+id/nav_search"
+        android:id="@+id/nav_scan"
         android:icon="@drawable/baseline_camera_alt_black_48dp"
-        android:title="@string/nav_search" />
+        android:title="Scan" />
     <item
-        android:id="@+id/nav_add"
-        android:icon="@drawable/baseline_add_black_48dp"
-        android:visible="false"
-        android:title="@string/nav_add" />
+        android:id="@+id/nav_search"
+        android:icon="@drawable/search"
+        android:title="Search" />
 </menu>

@@ -12,7 +12,7 @@ import java.util.List;
 public class MultiSpinner extends android.support.v7.widget.AppCompatSpinner implements
         DialogInterface.OnMultiChoiceClickListener, DialogInterface.OnCancelListener {
 
-    private List<Object> items = new ArrayList<>();
+    private ArrayList<String> items = new ArrayList<>();
     private boolean[] selected;
     private static String defaultText;
     private MultiSpinnerListener listener;
@@ -105,6 +105,7 @@ public class MultiSpinner extends android.support.v7.widget.AppCompatSpinner imp
        // items.add(0, "Select All");
         this.items.addAll(items);
         listsize=0;
+        this.items.trimToSize();
         totalItems = items.size();
         selected = new boolean[items.size()];
         this.defaultText = allText;

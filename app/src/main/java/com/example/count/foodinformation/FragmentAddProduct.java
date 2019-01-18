@@ -62,7 +62,7 @@ public class FragmentAddProduct extends Fragment {
         // Required empty public constructor
     }
     private Service service ;
-    EditText txBarcode,txProductName;
+    EditText txBarcode,txProductName,txCategory;
     Button btnNext;
     Spinner categorySpinner;
     Bitmap bitmap[];
@@ -74,6 +74,7 @@ public class FragmentAddProduct extends Fragment {
                              Bundle savedInstanceState) {
         View view = getView() != null ? getView() :  inflater.inflate(R.layout.fragment_add_product, container, false);
         txBarcode = view.findViewById(R.id.txtBarcode2);
+        txCategory = view.findViewById(R.id.txCategory);
         btnNext = view.findViewById(R.id.btnNext);
         imageView = new ImageView[3];
         imageView[0] = view.findViewById(R.id.IMG1);
@@ -88,40 +89,30 @@ public class FragmentAddProduct extends Fragment {
         btnNext.setOnClickListener(view1 -> {
             if(!txBarcode.getText().toString().equals("") && !txProductName.getText().toString().equals(""))
             {
-                String A  = String.valueOf(MainActivity.Categories.get(categorySpinner.getSelectedItem().toString()));
-                String Pic1=null,Pic2=null,Pic3=null;
-                if(bitmap[0]!=null)
-                    Pic1 = getStringFromBitmap(bitmap[0]);
-                if(bitmap[1]!=null)
-                    Pic2 = getStringFromBitmap(bitmap[1]);
-                if(bitmap[2]!=null)
-                    Pic3 = getStringFromBitmap(bitmap[2]);
-                ProductDTO product = new ProductDTO(txBarcode.getText().toString(), txProductName.getText().toString(), 0,Pic1 , Pic2, Pic3, new CategoryNameDTO(A));
-                service.CreateProduct(product)
-                        .enqueue(new Callback<ProductDTO>() {
+                final String[] A = {null};
+                if(categorySpinner.getSelectedItemPosition() == (categorySpinner.getCount()-1)) {
+                        service.AddCategory(new CategoryNameDTO(txCategory.getText().toString(),MainActivity.Language,FragmentLogin.UserID)).enqueue(new Callback<CategoryNameDTO>() {
                             @Override
-                            public void onResponse(Call<ProductDTO> call, Response<ProductDTO> response) {
-                                if (response.isSuccessful()) {
-                                    // Toast.makeText(getContext(), "CreateProduct Successfully", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    String ErrMSG = MainActivity.GetErrorMessage(response);
-                                    if(ErrMSG!=null)
-                                        Toast.makeText(getContext(), MainActivity.GetErrorMessage(response), Toast.LENGTH_SHORT).show();
-                                    else
-                                        Toast.makeText(getContext(), "CreateProduct Unknown Error", Toast.LENGTH_SHORT).show();
+                            public void onResponse(Call<CategoryNameDTO> call, Response<CategoryNameDTO> response) {
+                                if(response.isSuccessful())
+                                {
+                                    A[0] = response.body().getResult().getID();
+                                    CreateProduct(A[0]);
                                 }
                             }
 
                             @Override
-                            public void onFailure(Call<ProductDTO> call, Throwable t) {
-                                Toast.makeText(getContext(), "CreateProduct Failure", Toast.LENGTH_SHORT).show();
+                            public void onFailure(Call<CategoryNameDTO> call, Throwable t) {
+
                             }
                         });
-                FragmentAddContent fragmentAddContent = new FragmentAddContent();
-                Bundle bundle = new Bundle();
-                bundle.putString("BARCODE",txBarcode.getText().toString());
-                fragmentAddContent.setArguments(bundle);
-                setFragment(fragmentAddContent);
+                }
+                else
+                {
+                    A[0] = String.valueOf(MainActivity.Categories.get(categorySpinner.getSelectedItem().toString()));
+                    CreateProduct(A[0]);
+                }
+
             }
 
         });
@@ -132,7 +123,7 @@ public class FragmentAddProduct extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if(i == (adapterView.getCount()-1))
                 {
-
+                    txCategory.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -198,6 +189,42 @@ public class FragmentAddProduct extends Fragment {
         }
     }
 
+    public void CreateProduct(String category)
+    {
+        String Pic1=null,Pic2=null,Pic3=null;
+        if(bitmap[0]!=null)
+            Pic1 = getStringFromBitmap(bitmap[0]);
+        if(bitmap[1]!=null)
+            Pic2 = getStringFromBitmap(bitmap[1]);
+        if(bitmap[2]!=null)
+            Pic3 = getStringFromBitmap(bitmap[2]);
+        ProductDTO product = new ProductDTO(txBarcode.getText().toString(), txProductName.getText().toString(), 0,Pic1 , Pic2, Pic3,new CategoryNameDTO(category));
+        service.CreateProduct(product)
+                .enqueue(new Callback<ProductDTO>() {
+                    @Override
+                    public void onResponse(Call<ProductDTO> call, Response<ProductDTO> response) {
+                        if (response.isSuccessful()) {
+                            // Toast.makeText(getContext(), "CreateProduct Successfully", Toast.LENGTH_SHORT).show();
+                        } else {
+                            String ErrMSG = MainActivity.GetErrorMessage(response);
+                            if(ErrMSG!=null)
+                                Toast.makeText(getContext(), MainActivity.GetErrorMessage(response), Toast.LENGTH_SHORT).show();
+                            else
+                                Toast.makeText(getContext(), "CreateProduct Unknown Error", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ProductDTO> call, Throwable t) {
+                        Toast.makeText(getContext(), "CreateProduct Failure", Toast.LENGTH_SHORT).show();
+                    }
+                });
+        FragmentAddContent fragmentAddContent = new FragmentAddContent();
+        Bundle bundle = new Bundle();
+        bundle.putString("BARCODE",txBarcode.getText().toString());
+        fragmentAddContent.setArguments(bundle);
+        setFragment(fragmentAddContent);
+    }
     public static boolean checkPermissionWRITE_EXTERNAL_STORAGE(
             final Context context) {
         int currentAPIVersion = Build.VERSION.SDK_INT;

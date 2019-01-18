@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -64,17 +65,29 @@ public class FragmentAddContent extends Fragment {
                         list.add(response.body().getResult()[i].getLanguageName());
                     }
                     multiSpinner = view.findViewById(R.id.LanguageMS);
-                    List<String> llist2 = new ArrayList<>(MainActivity.llist);
-                    List<String> lclist2 = new ArrayList<>(MainActivity.LanguageCodes);
+                    ArrayList<String> llist2 = new ArrayList<>(MainActivity.llist);
+                    ArrayList<String> lclist2 = new ArrayList<>(MainActivity.LanguageCodes);
+                    for(int i = 0 ; i<llist2.size();i++)
+                    {
+                        if(llist2.get(i) == null || llist2.get(i).equals("") )
+                        {
+                            llist2.remove(i);
+                            lclist2.remove(i);
+                            i--;
+                        }
+                    }
                     if(!list.isEmpty())
                     {
                         for(int i = 0;i<list.size();i++)
                         {
-                            llist2.remove(list.get(i));
-                            lclist2.remove(list.get(i));
+                            int index  = llist2.indexOf(list.get(i));
+                            if(index==-1)continue;
+                            llist2.remove(index);
+                            lclist2.remove(index);
                         }
                     }
 
+                    llist2.trimToSize();
                     multiSpinner.setItems(llist2, "Languages", (boolean[] selected) -> {
                     layout.removeAllViews();
                     layout.addView(multiSpinner);
