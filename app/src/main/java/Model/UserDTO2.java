@@ -1,27 +1,46 @@
 package Model;
 
-public class UserDTO extends BaseDTO
+public class UserDTO2 extends BaseDTO
 {
     private String Name ;
     private String Surname ;
     private String Email ;
     private String Username ;
     private String Password ;
-    private UserDTO Result;
-    public UserDTO getResult() {
+    private UserDTO2[] Result;
+    private boolean isAdmin;
+    private boolean isModerator;
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
+    }
+
+    public boolean isModerator() {
+        return isModerator;
+    }
+
+    public void setModerator(boolean moderator) {
+        isModerator = moderator;
+    }
+
+    public UserDTO2[] getResult() {
         return Result;
     }
 
-    public void setResult(UserDTO result) {
+    public void setResult(UserDTO2[] result) {
         Result = result;
     }
 
-    public UserDTO(String username,int modifieduserid) {
+    public UserDTO2(String username,int createduserid) {
         Username = username;
-        super.setModifiedUserId(modifieduserid);
+        super.CreatedUserId = createduserid;
     }
 
-    public UserDTO(String username) {
+    public UserDTO2(String username) {
         Username = username;
     }
 
@@ -29,7 +48,6 @@ public class UserDTO extends BaseDTO
 
         return Name;
     }
-
     public void setName(String name) {
         Name = name;
     }

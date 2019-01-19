@@ -1,15 +1,19 @@
 package com.example.count.foodinformation;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -46,8 +50,6 @@ import static com.example.count.foodinformation.R.layout.support_simple_spinner_
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-//    private TextView txName;
-//    private TextView txSurName;
     private Service service;
     private BottomNavigationView nav;
     private FrameLayout frameLayout;
@@ -56,6 +58,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public FragmentProfile fragmentProfile;
     public FragmentShowInfo fragmentShowInfo;
     public FragmentSearch fragmentSearch;
+    public FragmentAllUsers fragmentAllUsers;
+    public FragmentCategoryMod fragmentCategoryMod;
+    public FragmentAllProduct fragmentAllProduct;
     public  Scanner scanner ;
     public static Fragment active;
     private Spinner spinner;
@@ -66,6 +71,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static Map<String,String> Languages = new TreeMap<>();
     public static ArrayList<CharSequence> arrayList = new ArrayList<>();
     public static List<String> llist ;
+    public static MenuItem settings,product,Categorize,users;
+
     public static String GetErrorMessage(Response response) {
         Gson gson = new Gson();
         try {
@@ -80,12 +87,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return "Unknown Error";
         }
     }
-        @Override
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId()== R.id.Settings)
         {
             startActivity(new Intent(this,SettingsActivity.class));
-           // Toast.makeText(getApplicationContext(),"text",Toast.LENGTH_SHORT).show();
+        }
+        else if(item.getItemId()== R.id.Categorize)
+        {
+            setFragment(fragmentCategoryMod,false);
+        }
+        else if(item.getItemId()== R.id.product)
+        {
+            setFragment(fragmentAllProduct,false);
+        }
+        else if(item.getItemId()== R.id.Users)
+        {
+            setFragment(fragmentAllUsers,false);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -98,41 +116,72 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        product = menu.findItem(R.id.product);
+        Categorize = menu.findItem(R.id.Categorize);
+        users = menu.findItem(R.id.Users);
+        product.setVisible(false);
+        users.setVisible(false);
+        Categorize.setVisible(false);
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-       // Connection connection = new Connection();
-//        txName = findViewById(R.id.txName);
-//        txSurName = findViewById(R.id.txtSurname);
-//        findViewById(R.id.button).setOnClickListener(this);
-//        findViewById(R.id.btnGet).setOnClickListener(this);
-//        findViewById(R.id.btnSend).setOnClickListener(this);
         mainActivity = this;
         nav = findViewById(R.id.nav);
         fragmentLogin = new FragmentLogin();
         fragmentProfile = new FragmentProfile();
         fragmentShowInfo = new FragmentShowInfo();
         fragmentSearch = new FragmentSearch();
+        fragmentAllUsers = new FragmentAllUsers();
+        fragmentAllProduct = new FragmentAllProduct();
+        fragmentCategoryMod = new FragmentCategoryMod();
+        fragmentSearch = new FragmentSearch();
         scanner = new Scanner();
-
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.CAMERA},
+                        123);
+        }
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.INTERNET)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.INTERNET},
+                    123);
+        }
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    123);
+        }
         findViewById(R.id.btnStart).setOnClickListener(this);
 
         nav.setOnNavigationItemSelectedListener(menuItem -> {
             findViewById(R.id.lyWelcome).setVisibility(View.INVISIBLE);
             if(scanner.getBarcode)scanner.getBarcode=false;
+            if(fragmentLogin.addproduct)fragmentLogin.addproduct= false;
+            if(fragmentLogin.addcontent)fragmentLogin.addcontent= false;
             switch (menuItem.getItemId()) {
                 case R.id.nav_login:
                     if(FragmentLogin.UserID==0)
                         setFragment(fragmentLogin);
                     else
-                        setFragment(fragmentProfile);
+                        setFragment(new FragmentAllUsers());
                     return true;
                 case R.id.nav_scan:
                     setFragment(scanner);
                     return true;
                 case R.id.nav_search:
                     setFragment(fragmentSearch);
-                        return true;
+                    return true;
                 default:
                     return false;
             }
@@ -164,9 +213,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 llist = new ArrayList<>();
                 List<String> dlist = new ArrayList<>();
                 int Index = -1;
-                for(int i = 0 ;i<response.body().getResult().length;i++)
+                for(int i = 0 ;i<response.body().getResult().length-1;i++)
                 {
-                    if(Index == -1 && response.body().getResult()[i].getLanguageName().equalsIgnoreCase(Language))
+                    if (response.body().getResult()[i].getLanguageName()==null)continue;
+                    if(Index == -1 &&  response.body().getResult()[i].getLanguageName().equalsIgnoreCase(Language))
                         Index = i;
                     llist.add(response.body().getResult()[i].getLanguageName());
                     dlist.add(response.body().getResult()[i].getLanguageCode());
@@ -255,14 +305,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     {
         findViewById(R.id.lyWelcome).setVisibility(View.INVISIBLE);
         nav.setVisibility(View.VISIBLE);
-        setFragment(fragmentLogin);//
+        setFragment(fragmentLogin);//setFragment(fragmentLogin);//
         GetCategoryList();
     }
-    private void setFragment(Fragment fragment)
+    private void setFragment(Fragment fragment){setFragment(fragment,true);}
+    private void setFragment(Fragment fragment,boolean backtostack)
     {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout,fragment);
-        fragmentTransaction.addToBackStack(null);
+        if(backtostack)fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 

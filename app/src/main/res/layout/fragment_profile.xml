@@ -14,7 +14,7 @@
         android:gravity="center"
         >
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/txPName"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -23,25 +23,24 @@
              />
 
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/txPSurname"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:ems="10"
             android:text="Surname"
             android:inputType="textPersonName"
            />
-
         <EditText
-            android:id="@+id/editText3"
+            android:id="@+id/txPUsername"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:text="Password"
+            android:text="Username"
             android:inputType="textPersonName"
-             />
+            />
 
         <EditText
-            android:id="@+id/editText4"
+            android:id="@+id/txPEMail"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -50,15 +49,14 @@
             />
 
         <Button
-            android:id="@+id/button"
-            android:layout_margin="20dp"
-            android:background="@color/colorPrimary"
-            android:textColor="@color/colorWhite"
-            android:textSize="15sp"
+            android:id="@+id/btnUpdate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:background="@color/colorPrimary"
             android:text="Update"
-           />
+            android:textColor="@color/colorWhite"
+            android:textSize="15sp" />
 
 
 

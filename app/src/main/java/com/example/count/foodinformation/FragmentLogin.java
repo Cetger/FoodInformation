@@ -39,7 +39,10 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
     private TextView txStatus;
     private CheckBox checkBox;
     public static int UserID;
-    public boolean addInfo = false;
+    public static boolean isAdmin,isModerator;
+    public boolean addproduct = false;
+    public boolean addcontent = false;
+    public static Bundle bundle;
     FragmentTransaction fragmentTransaction;
     public FragmentLogin() {
         // Required empty public constructor
@@ -53,6 +56,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
 
         View view = inflater.inflate(R.layout.fragment_fragment_login, container, false);
         fragmentTransaction  =  getActivity().getSupportFragmentManager().beginTransaction();
+        bundle = new Bundle();
         service = Common.GetService();
         txID = view.findViewById(R.id.txID);
         txPW = view.findViewById(R.id.txPW);
@@ -87,6 +91,19 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
                     if(response.isSuccessful())
                     {
                         String UserName = response.body().getResult().getUsername();
+                        isAdmin = response.body().getResult().isAdmin();
+                        isModerator = response.body().getResult().isModerator();
+                        if(isAdmin)
+                        {
+                            MainActivity.product.setVisible(true);
+                            MainActivity.users.setVisible(true);
+                        }
+                        if(isModerator)
+                        {
+                            MainActivity.product.setVisible (true);
+                            MainActivity.Categorize.setVisible(true);
+                        }
+                        isModerator = response.body().getResult().isModerator();
                         service.GetUserDetailByUsername(new UserDTO(UserName)).enqueue(new Callback<UserDTO>() {
                             @Override
                             public void onResponse(Call<UserDTO> call, Response<UserDTO> response) {
@@ -98,8 +115,34 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
                                         editor.putString("ID", txID.getText().toString());
                                         editor.putString("PW", txPW.getText().toString());
                                         editor.apply();
+
                                     }
                                     UserID = response.body().getResult().Id;
+
+
+                                    if(addproduct)
+                                    {
+                                        bundle.putString("BARCODE",getArguments().getString("BARCODE"));
+                                        addproduct=false;
+                                        FragmentAddProduct fragmentAddProduct =  new FragmentAddProduct();
+                                        fragmentAddProduct.setArguments(bundle);
+                                        setFragment(fragmentAddProduct);//setFragment(fragmentProfile);
+                                    } else if (addcontent)
+                                    {
+                                        bundle.putString("BARCODE",getArguments().getString("BARCODE"));
+                                        addcontent=false;
+                                        FragmentAddContent fragmentAddContent =  new FragmentAddContent();
+                                        fragmentAddContent.setArguments(bundle);
+                                        setFragment(fragmentAddContent);
+                                    } else {
+
+                                        bundle.putString("NAME", response.body().getResult().getName());
+                                        bundle.putString("SURNAME", response.body().getResult().getSurname());
+                                        bundle.putString("USERNAME", response.body().getResult().getUsername());
+                                        bundle.putString("EMAIL", response.body().getResult().getEmail());
+                                        MainActivity.mainActivity.fragmentProfile.setArguments(bundle);
+                                        setFragment(MainActivity.mainActivity.fragmentProfile);//setFragment(fragmentProfile);
+                                    }
                                 }
                             }
 
@@ -108,20 +151,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
 
                             }
                         });
-                       // UserID = response.body().getCreatedUserId();
 
-                       // bundle.putString("Name",response.body().getUsernameOrEmail());
-                        if(addInfo)
-                        {
-                            addInfo=false;
-                            FragmentAddProduct fragmentAddProduct =  new FragmentAddProduct();
-                            Bundle bundle = new Bundle();
-                            bundle.putString("BARCODE",getArguments().getString("BARCODE"));
-                            fragmentAddProduct.setArguments(bundle);
-                            setFragment(fragmentAddProduct);//setFragment(fragmentProfile);
-                        }
-                        else
-                            setFragment(new FragmentProfile());//setFragment(fragmentProfile);
                     }
                     else
                     {

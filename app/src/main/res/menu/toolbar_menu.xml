@@ -1,27 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <item
-        android:id="@+id/LogForMod"
-        android:icon="@drawable/edit"
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+        <item
+        android:id="@+id/Categorize"
+        android:icon="@drawable/merge"
         app:showAsAction="always"
-        android:title="Moderator"
+        android:title="Categorize"
         />
-
-    <item
-        android:id="@+id/LogForAdmin"
-        android:icon="@drawable/security"
+        <item
+        android:id="@+id/product"
+        android:icon="@drawable/list"
         app:showAsAction="always"
-        android:title="Admin"
+        android:title="Products"
         />
-    <item
+        <item
+        android:id="@+id/Users"
+        android:icon="@drawable/group"
+        app:showAsAction="always"
+        android:title="Users"/>
+        <item
         android:id="@+id/Settings"
         android:icon="@drawable/setting"
         app:showAsAction="always"
         android:title="Settings" />
-
-
-
-
 </menu>

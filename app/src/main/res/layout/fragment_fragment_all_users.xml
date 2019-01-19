@@ -16,10 +16,12 @@
         android:textSize="30dp"
         android:layout_margin="5dp"
         />
+
     <ListView
+        android:id="@+id/listviewuser"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </ListView>
+        android:clickable="true"
+        android:layout_height="match_parent"></ListView>
 
 
 

@@ -57,7 +57,7 @@ public class FragmentShowInfo extends Fragment {
     private static CommentAdapter adapter;
     private TextView comments,txRate;
     private String ContentID;
-
+    public String barcode;
     public FragmentShowInfo() {
         // Required empty public constructor
     }
@@ -88,8 +88,6 @@ public class FragmentShowInfo extends Fragment {
         IMG3.setOnClickListener(view1 -> IMGMain.setImageDrawable(IMG3.getDrawable()));
         ratingBar = view.findViewById(R.id.Rate);
         ratingBar2 = view.findViewById(R.id.Rate2);
-
-
         comments.setOnClickListener(v -> {
             Intent goster=new Intent(getContext(),commetshow.class);
             startActivity(goster);
@@ -101,7 +99,7 @@ public class FragmentShowInfo extends Fragment {
         final PieChartData[] pieChartData = new PieChartData[1];
 
         assert getArguments() != null;
-        String barcode = getArguments().getString("BARCODE");
+         barcode = getArguments().getString("BARCODE");
         String language = getArguments().getString("LANGUAGE","");
         String languageCode;
         if(language == "")
@@ -155,31 +153,33 @@ public class FragmentShowInfo extends Fragment {
                 }
                 else
                 {
-                     Fragment fragment = null;
+                    Fragment fragment = null;
                     JSONObject obj = null;
-                    String nFound = null,sAdd= null;
+                    final String[] nFound = {null};
+                    String sAdd= null;
                     try {
                         obj = new JSONObject(response.errorBody().string());
                         String Code = obj.getString("message");
-                        Bundle bundle = new Bundle();
-                        bundle.putString("BARCODE",barcode);
+
 
                         if(Code.equals("PRD0001"))
                         {
                             sAdd ="Product Couldn't Found";
-                            nFound ="Do you wanna add product ?";
+                            nFound[0] ="Do you wanna add product ?";
                             fragment = new FragmentAddProduct();
                         }
                         else if(Code.equals("CTN0003"))
                         {
                             sAdd ="Content Couldn't Found";
-                            nFound ="Do you wanna add Content ?";
+                            nFound[0] ="Do you wanna add Content ?";
                             fragment = new FragmentAddContent();
                         }
+                        Bundle bundle = new Bundle();
+                        bundle.putString("BARCODE",barcode);
                         fragment.setArguments(bundle);
                         Fragment finalFragment = fragment;
                         new SweetAlertDialog(getContext(), SweetAlertDialog.WARNING_TYPE)
-                                .setTitleText(nFound)
+                                .setTitleText(nFound[0])
                                 .setContentText(sAdd)
                                 .setCancelText("No")
                                 .setConfirmText("Yes")
@@ -189,8 +189,19 @@ public class FragmentShowInfo extends Fragment {
                                         setFragment(finalFragment);
                                     else
                                     {
-                                        MainActivity.mainActivity.fragmentLogin.setArguments(bundle);
-                                        MainActivity.mainActivity.fragmentLogin.addInfo = true;
+                                        Bundle bundle2 = new Bundle();
+                                        bundle2.putString("BARCODE",barcode);
+                                        MainActivity.mainActivity.fragmentLogin.setArguments(bundle2);
+                                        if(nFound[0] =="Do you wanna add product ?" )
+                                        {
+                                            MainActivity.mainActivity.fragmentLogin.addproduct = true;
+                                            MainActivity.mainActivity.fragmentLogin.addcontent = false;
+                                        }
+                                        else
+                                        {
+                                            MainActivity.mainActivity.fragmentLogin.addcontent = true;
+                                            MainActivity.mainActivity.fragmentLogin.addproduct = false;
+                                        }
                                         setFragment(MainActivity.mainActivity.fragmentLogin);
                                     }
                                     sDialog.cancel();
@@ -218,7 +229,7 @@ public class FragmentShowInfo extends Fragment {
         });
 
         btnComment.setOnClickListener(view14 -> {
-            service.AddVote(new VoteDTO((int) (ratingBar2.getRating()*2),barcode,Integer.valueOf(ContentID))).enqueue(new Callback<VoteDTO>() {
+            service.AddVote(new VoteDTO((int) (ratingBar2.getRating()*2),barcode,FragmentLogin.UserID)).enqueue(new Callback<VoteDTO>() {
                 @Override
                 public void onResponse(Call<VoteDTO> call, Response<VoteDTO> response) {
                     if(response.isSuccessful())

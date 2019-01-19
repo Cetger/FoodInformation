@@ -63,16 +63,11 @@ public class FragmentSearch extends Fragment {
         AlertDialog.Builder alertDialogBuilder=new AlertDialog.Builder(getContext());
         View dialogView=inflater.inflate(R.layout.language_custom,null);
         alertDialogBuilder.setView(dialogView);
-        Spinner spinner = dialogView.findViewById(R.id.spinnerLanguages);
+        ListView spinner = dialogView.findViewById(R.id.listviewLanguage);
         AlertDialog alertDialog=alertDialogBuilder.create();
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(first)
-                {
-                    first = false;
-                    return;
-                }
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Bundle bundle = new Bundle();
                 FragmentShowInfo fragmentShowInfo = new FragmentShowInfo();
                 bundle.putString("BARCODE",BarcodeList.get(i).toString());
@@ -81,16 +76,8 @@ public class FragmentSearch extends Fragment {
                 setFragment(fragmentShowInfo);
                 alertDialog.hide();
             }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
         });
         listView.setOnItemClickListener((adapterView, view1, i, l) -> {
-
-            Toast.makeText(getContext(), "Tıklandı"+adapterView.getItemAtPosition(i).toString(), Toast.LENGTH_SHORT).show();
-
             service.GetLanguageListOfProductByBarcodeId(new BarcodeDTO(BarcodeList.get(i).toString())).enqueue(new Callback<LanguagesClass>() {
                 @Override
                 public void onResponse(Call<LanguagesClass> call, Response<LanguagesClass> response) {
@@ -112,17 +99,27 @@ public class FragmentSearch extends Fragment {
                         {
                             Bundle bundle = new Bundle();
                             FragmentShowInfo fragmentShowInfo = new FragmentShowInfo();
-                            bundle.putString("BARCODE",BarcodeList.get(0).toString());
-                            bundle.putString("LANGUAGE",response.body().getResult()[0].getLanguageName());
+                            bundle.putString("BARCODE",BarcodeList.get(i).toString());
+                            bundle.putString("LANGUAGE",response.body().getResult()[0].getLanguageCode());
                             fragmentShowInfo.setArguments(bundle);
                             setFragment(fragmentShowInfo);
                         }
+                        else if(response.body().getResult().length== 0)
+                        {
+                            Bundle bundle = new Bundle();
+                            FragmentShowInfo fragmentShowInfo = new FragmentShowInfo();
+                            bundle.putString("BARCODE",BarcodeList.get(i).toString());
+                            bundle.putString("LANGUAGE","1");
+                            fragmentShowInfo.setArguments(bundle);
+                            setFragment(fragmentShowInfo);
+                        }
+
                     }
                 }
 
                 @Override
                 public void onFailure(Call<LanguagesClass> call, Throwable t) {
-
+                    Toast.makeText(getContext(),"Failure",Toast.LENGTH_SHORT).show();
                 }
             });
         });

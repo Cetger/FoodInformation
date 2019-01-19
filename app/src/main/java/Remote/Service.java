@@ -2,6 +2,7 @@ package Remote;
 
 import com.example.count.foodinformation.VoteDTO;
 
+import Model.AdminDTO;
 import Model.BarcodeDTO;
 import Model.CategoryClass;
 import Model.CategoryLanguage;
@@ -13,6 +14,7 @@ import Model.ErrorClass;
 import Model.LanguageAndProductDTO;
 import Model.LanguagesClass;
 import Model.LoginClass;
+import Model.ModeratorDTO;
 import Model.Parameter;
 import Model.PostResponse;
 import Model.ProductDTO;
@@ -20,6 +22,7 @@ import Model.ProductDTO2;
 import Model.SearchByNameDTO;
 import Model.UpdateCategoryNameDTO;
 import Model.UserDTO;
+import Model.UserDTO2;
 import Model.Values;
 import Model.productNameClass;
 import retrofit2.Call;
@@ -38,28 +41,34 @@ public interface Service
 
   //******ProductController***********
 
+  @POST("/api/Product/AllProducts/")
+  Call<ProductDTO> AllProducts(@Body ProductDTO value);
   @POST("/api/Product/CreateProduct/")
-Call<ProductDTO> CreateProduct(@Body ProductDTO value);
+  Call<ProductDTO> CreateProduct(@Body ProductDTO value);
   @POST("/api/Product/GetProductNameByBarcodeId/")
   Call<ProductDTO> GetProductNameByBarcodeId(@Body BarcodeDTO value);
   @POST("/api/Product/SearchProductByName/")
   Call<SearchByNameDTO> SearchProductByName(@Query("productname") String name);
 
 
-
-
   //******UserController***********
-
+  @POST("/api/User/GetAllUsersOrderByName/")
+  Call<UserDTO2> GetAllUsersOrderByName();
+  @POST("/api/User/DeleteUserByUsername/")
+  Call<AdminDTO> DeleteUserByUsername(@Body UserDTO value);
   @POST("/api/User/CreateUser/")
   Call<CreateUserClass> CreateUser(@Body CreateUserClass value);
   @POST("/api/User/GetUserDetailByUsername/")
   Call<UserDTO> GetUserDetailByUsername(@Body UserDTO value);
   @POST("/api/User/SetModeratorByUsername/")
-  Call<UserDTO> SetModeratorByUsername(@Body UserDTO value);
+  Call<ModeratorDTO> SetModeratorByUsername(@Body UserDTO value);
+  @POST("/api/User/SetNormalUserByUsername/")
+  Call<AdminDTO> SetNormalUserByUsername(@Body UserDTO userDTO);
   @POST("/api/User/SetAdminByUsername/")
-  Call<UserDTO> SetAdminByUsername(@Body UserDTO value);
+  Call<AdminDTO> SetAdminByUsername(@Body UserDTO userDTO);
   @POST("/api/User/GetFirstUser/")
   Call<UserDTO> GetFirstUser();
+
 
   //******ErrorController***********
 
@@ -77,10 +86,8 @@ Call<ProductDTO> CreateProduct(@Body ProductDTO value);
   Call<CommentDTO> AddComment(@Body CommentDTO value);
 
     //******ContentController***********
-
   @POST("/api/Content/GetProductContentByLanguageCode/")
   Call<ContentDTO> GetProductContentByLanguageCode(@Body LanguageAndProductDTO contentDTO);
-
   @POST("/api/Content/CreateContentOfProduct/")
   Call<ContentDTO> CreateContentOfProduct(@Body ContentDTO contentDTO);
 

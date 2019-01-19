@@ -6,9 +6,28 @@ public class LoginClass extends BaseDTO
     private String Password;
     private String Email;
     private LoginClass Result;
+    private boolean IsAdmin;
+    private boolean IsModerator;
+
+    public boolean isAdmin() {
+        return IsAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        IsAdmin = admin;
+    }
+
+    public boolean isModerator() {
+        return IsModerator;
+    }
+
+    public void setModerator(boolean moderator) {
+        IsModerator = moderator;
+    }
 
     public LoginClass getResult() {
         return Result;
+
     }
 
     public void setResult(LoginClass result) {
