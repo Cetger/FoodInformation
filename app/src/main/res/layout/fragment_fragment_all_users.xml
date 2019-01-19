@@ -12,7 +12,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Admin Panel - Users"
+        android:text="@string/admin_panel_users"
         android:textSize="30dp"
         android:layout_margin="5dp"
         />

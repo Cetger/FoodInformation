@@ -210,13 +210,13 @@ public class FragmentAddProduct extends Fragment {
                             if(ErrMSG!=null)
                                 Toast.makeText(getContext(), MainActivity.GetErrorMessage(response), Toast.LENGTH_SHORT).show();
                             else
-                                Toast.makeText(getContext(), "CreateProduct Unknown Error", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), getString(R.string.createProduct), Toast.LENGTH_SHORT).show();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ProductDTO> call, Throwable t) {
-                        Toast.makeText(getContext(), "CreateProduct Failure", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), getString(R.string.CreateProductFail), Toast.LENGTH_SHORT).show();
                     }
                 });
         FragmentAddContent fragmentAddContent = new FragmentAddContent();
@@ -257,8 +257,8 @@ public class FragmentAddProduct extends Fragment {
                            final String permission) {
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);
         alertBuilder.setCancelable(true);
-        alertBuilder.setTitle("Permission necessary");
-        alertBuilder.setMessage(msg + " permission is necessary");
+        alertBuilder.setTitle(R.string.PermissionNec);
+        alertBuilder.setMessage(msg + context.getString(R.string.perner));
         alertBuilder.setPositiveButton(android.R.string.yes,
                 (dialog, which) -> ActivityCompat.requestPermissions((Activity) context,
                         new String[] { permission },

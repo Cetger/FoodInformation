@@ -50,7 +50,7 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:ems="8"
-        android:hint="BARCODE"
+        android:hint="@string/barcode"
         android:inputType="number" />
 
     <ImageView
@@ -68,7 +68,7 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:ems="8"
-        android:hint="Product Name" />
+        android:hint="@string/product_name" />
 
     <Spinner
         android:id="@+id/categorySpinner2"
@@ -102,7 +102,7 @@
         android:layout_height="wrap_content"
         android:ems="8"
         android:visibility="invisible"
-        android:hint="Category Name" />
+        android:hint="@string/category_name" />
 
     <Button
         android:id="@+id/btnNext"
@@ -110,6 +110,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end"
         android:layout_marginEnd="80dp"
-        android:text="Next" />
+        android:text="@string/next" />
 
 </LinearLayout>

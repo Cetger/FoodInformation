@@ -25,7 +25,7 @@
             android:id="@+id/txStatusCreate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Örnek hata"
+            android:text="@string/rnek_hata"
             android:textColor="@color/colorPrimary"
             android:textSize="15sp"
             android:visibility="invisible"
@@ -41,7 +41,7 @@
                 android:ems="10"
                 android:layout_margin="4dp"
                 android:inputType="textPersonName"
-                android:hint="Name" />
+                android:hint="@string/name" />
 
             <EditText
                 android:id="@+id/txtSurName"
@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:hint="Surname" />
+                android:hint="@string/surname" />
 
         </LinearLayout>
 
@@ -63,7 +63,7 @@
             android:layout_margin="4dp"
             android:ems="10"
             android:inputType="textPersonName"
-            android:hint="E-Mail" />
+            android:hint="@string/e_mail" />
 
         <EditText
             android:id="@+id/txtID"
@@ -72,7 +72,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:hint="ID" />
+            android:hint="@string/id" />
 
         <EditText
             android:id="@+id/txtPW"
@@ -80,7 +80,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPassword"
-            android:hint="Password" />
+            android:hint="@string/password" />
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -93,7 +93,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPassword"
-                android:hint="Password" />
+                android:hint="@string/password" />
             <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/imgTick"
                 android:layout_width="wrap_content"
@@ -113,7 +113,7 @@
             android:textColor="@color/colorWhite"
             android:layout_margin="4dp"
             android:textSize="13sp"
-            android:text="Create Account" />
+            android:text="@string/create_account" />
 
 
 

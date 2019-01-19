@@ -233,9 +233,9 @@ public class FragmentShowInfo extends Fragment {
                 @Override
                 public void onResponse(Call<VoteDTO> call, Response<VoteDTO> response) {
                     if(response.isSuccessful())
-                        Toast.makeText(getContext(),"Rate added succesfully",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(),getString(R.string.RateSuc),Toast.LENGTH_SHORT).show();
                     else
-                        Toast.makeText(getContext(),"You have already voted this product!",Toast.LENGTH_SHORT).show();//Toast.makeText(getContext(),MainActivity.GetErrorMessage(response),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(),getString(R.string.YouHaveAlready),Toast.LENGTH_SHORT).show();//Toast.makeText(getContext(),MainActivity.GetErrorMessage(response),Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
@@ -250,7 +250,7 @@ public class FragmentShowInfo extends Fragment {
                 public void onResponse(Call<CommentDTO> call, Response<CommentDTO> response) {
                     if(response.isSuccessful())
                     {
-                        Toast.makeText(getContext(),"Comment added succesfully",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(),getString(R.string.comAdSuc),Toast.LENGTH_SHORT).show();
 
                     }
                 }

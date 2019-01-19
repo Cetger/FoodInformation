@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Name"
+            android:text="@string/name"
              />
 
         <EditText
@@ -27,7 +27,7 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:text="Surname"
+            android:text="@string/surname"
             android:inputType="textPersonName"
            />
         <EditText
@@ -35,7 +35,7 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:text="Username"
+            android:text="@string/username"
             android:inputType="textPersonName"
             />
 
@@ -44,7 +44,7 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:text="Email"
+            android:text="@string/email"
             android:inputType="textPersonName"
             />
 
@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:background="@color/colorPrimary"
-            android:text="Update"
+            android:text="@string/update"
             android:textColor="@color/colorWhite"
             android:textSize="15sp" />
 
@@ -64,7 +64,7 @@
             android:id="@+id/btnLogOut"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Log Out"
+            android:text="@string/log_out"
             android:textColor="@color/colorWhite"
             android:background="@color/colorPrimary"
             android:textSize="15sp"

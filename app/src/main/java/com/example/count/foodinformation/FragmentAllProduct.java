@@ -50,7 +50,7 @@ public class FragmentAllProduct extends Fragment {
             public void onResponse(Call<AdminDTO> call, Response<AdminDTO> response) {
                 if(response.isSuccessful())
                 {
-                    Toast.makeText(getContext(),"User successfully deleted",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),getString(R.string.userSucDel),Toast.LENGTH_SHORT).show();
                     FillListView();
                 }
             }

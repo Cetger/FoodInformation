@@ -231,7 +231,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 else
                 {
-                    Toast.makeText(MainActivity.this,"Language getting error else",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this,getString(R.string.LanGeEror),Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -254,7 +254,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 else
                 {
-                    Toast.makeText(MainActivity.this,"Error getting error else",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this,getString(R.string.ErrorGet),Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -280,7 +280,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 else
                 {
-                    Toast.makeText(MainActivity.this,"Error getting Category else",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this,getString(R.string.ErrorGetCat),Toast.LENGTH_SHORT).show();
                 }
             }
 

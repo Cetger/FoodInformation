@@ -83,8 +83,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="8"
-                    android:text="Product Name: Nutella
-Product Categori" />
+                    android:text="@string/product_name_nutella_product_categori" />
 
                 <lecho.lib.hellocharts.view.PieChartView
                     android:id="@+id/chart"
@@ -111,7 +110,7 @@ Product Categori" />
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/txRate"
-                        android:text="0.00"
+                        android:text="@string/_0_00"
                         android:ems="3"
                         android:layout_gravity="center"
                         android:gravity="center"
@@ -134,7 +133,7 @@ Product Categori" />
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="8"
-                    android:text="Product Ingrediadents Ürün1, Ürün2, Ürün3, Ürün4, Ürün1, Ürün2, Ürün3, Ürün4, Ürün1, Ürün2, Ürün3, Ürün4," />
+                    android:text="@string/hello_blank_fragment"/>
 
             </LinearLayout>
 
@@ -145,8 +144,7 @@ Product Categori" />
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="8"
-                android:text="Detail: Nutella®'nın fındık ve kakaonun muhteşem uyumuyla kendine has bir aroması vardır. O kadar lezzetlidir ki, küçük bir miktar bile oldukça tatmin edicidir: Bir ekmeğe sürülen 15g (1 çay kaşığı) Nutella dahi eşsiz bir tat ve zevk dolu bir deneyimi garanti etmeye yeter. Nutella®'nın fındık ve kakaonun muhteşem uyumuyla kendine has bir aroması vardır. O kadar lezzetlidir ki, küçük bir miktar bile oldukça tatmin edicidir: Bir ekmeğe sürülen 15g (1 çay kaşığı) uyumuyla kendine has bir aroması vardır. O kadar lezzetlidir ki, küçük bir miktar bile oldukça tatmin edicidir: Bir ekmeğe sürülen 15g (1 çay kaşığı) Nutella dahi eşsiz bir tat ve zevk dolu bir deneyimi garanti etmeye yeter."
-/>
+                android:text="@string/hello_blank_fragment" />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="3dp"
@@ -165,7 +163,7 @@ Product Categori" />
                     android:id="@+id/commentsbaslık"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Comments"
+                    android:text="@string/comments"
                     android:clickable="true"
                     android:textColor="@color/colorPrimary"
                     android:textSize="20dp"
@@ -179,7 +177,7 @@ Product Categori" />
                     android:layout_width="250dp"
                     android:layout_height="100dp"
                     android:gravity="center"
-                    android:hint="Send Comment here"
+                    android:hint="@string/send_comment_here"
 
                     />
                 <android.support.v7.widget.AppCompatRatingBar
@@ -194,7 +192,7 @@ Product Categori" />
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="SEND" />
+                    android:text="@string/send" />
 
                 <View
                     android:layout_width="wrap_content"

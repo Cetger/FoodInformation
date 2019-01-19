@@ -73,7 +73,7 @@ public class FragmentCreateUser extends Fragment implements View.OnClickListener
         {
             if(txtEmail.getText().toString().equals("") || txtUsername.getText().toString().equals("") || !txtEmail.getText().toString().contains("@"))
             {
-                Toast.makeText(getContext(), "There is an error in given information!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), getString(R.string.TheİsAnError), Toast.LENGTH_SHORT).show();
                 return;
             }
             service.CreateUser(new CreateUserClass(txtName.getText().toString(),txtSurname.getText().toString(),txtEmail.getText().toString(),txtPassword.getText().toString(),txtUsername.getText().toString())).enqueue(new Callback<CreateUserClass>() {

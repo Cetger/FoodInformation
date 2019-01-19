@@ -4,22 +4,22 @@
         android:id="@+id/Categorize"
         android:icon="@drawable/merge"
         app:showAsAction="always"
-        android:title="Categorize"
+        android:title="@string/categorize"
         />
         <item
         android:id="@+id/product"
         android:icon="@drawable/list"
         app:showAsAction="always"
-        android:title="Products"
+        android:title="@string/products"
         />
         <item
         android:id="@+id/Users"
         android:icon="@drawable/group"
         app:showAsAction="always"
-        android:title="Users"/>
+        android:title="@string/users"/>
         <item
         android:id="@+id/Settings"
         android:icon="@drawable/setting"
         app:showAsAction="always"
-        android:title="Settings" />
+        android:title="@string/settings" />
 </menu>

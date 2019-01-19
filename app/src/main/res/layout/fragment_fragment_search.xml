@@ -16,7 +16,7 @@
         android:ems="12"
         android:drawablePadding="10dp"
         android:drawableRight="@drawable/search"
-        android:hint="Search"
+        android:hint="@string/search"
         />
 
     <ListView

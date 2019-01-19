@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:textSize="20dp"
         android:layout_margin="5dp"
-        android:text="All Product" />
+        android:text="@string/all_product" />
 
     <ListView
         android:id="@+id/listviewproduct"

@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Category"
+        android:text="@string/category"
         android:textSize="20dp"
         android:layout_margin="5dp"
         />
@@ -24,7 +24,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Kategorize Edilecekler"
+        android:text="@string/kategorize_edilecekler"
         />
 
     <ListView

@@ -41,7 +41,7 @@
             <TextView
                 android:layout_width="270dp"
                 android:layout_height="wrap_content"
-                android:text="Select Your Language : "
+                android:text="@string/select_your_language"
                 android:textAlignment="viewEnd"
                 android:textSize="25sp"
                 android:layout_margin="10dp"/>
@@ -62,7 +62,7 @@
             android:textColor="@color/colorWhite"
             android:textSize="20sp"
             android:layout_gravity="center_horizontal"
-            android:text="Start" />
+            android:text="@string/start" />
     </LinearLayout>
     <FrameLayout
         android:id="@+id/frame_layout"

@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:ems="5"
             android:textAlignment="viewEnd"
-            android:text="Energy : "/>
+            android:text="@string/energy"/>
         <EditText
             android:id="@+id/Energy"
             android:layout_width="wrap_content"
@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:ems="5"
             android:textAlignment="viewEnd"
-            android:text="Fat : "/>
+            android:text="@string/fat"/>
         <EditText
             android:id="@+id/Fat"
             android:layout_width="wrap_content"
@@ -48,7 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="9"
-        android:text="Saturated Fatty Acids : "/>
+        android:text="@string/saturated_fatty_acids"/>
 
         <EditText
             android:id="@+id/SaturatedFattyAcids"
@@ -65,7 +65,7 @@
         android:layout_height="wrap_content"
         android:ems="7"
         android:textAlignment="viewEnd"
-        android:text="Trans Fatty Acids : "/>
+        android:text="@string/trans_fatty_acids"/>
 
     <EditText
         android:id="@+id/TransFattyAcids"
@@ -82,7 +82,7 @@
         android:layout_height="wrap_content"
         android:ems="5"
         android:textAlignment="viewEnd"
-        android:text="Carbohydrate : "/>
+        android:text="@string/carbohydrate"/>
     <EditText
         android:id="@+id/Carbohydrate"
         android:layout_width="wrap_content"
@@ -99,7 +99,7 @@
             android:layout_height="wrap_content"
             android:ems="5"
             android:textAlignment="viewEnd"
-            android:text="Fiber : "/>
+            android:text="@string/fiber"/>
         <EditText
             android:id="@+id/Fiber"
             android:layout_width="wrap_content"
@@ -115,7 +115,7 @@
             android:layout_height="wrap_content"
             android:ems="5"
             android:textAlignment="viewEnd"
-            android:text="Protein : "/>
+            android:text="@string/protein"/>
         <EditText
             android:id="@+id/Protein"
             android:layout_width="wrap_content"
@@ -131,7 +131,7 @@
             android:layout_height="wrap_content"
             android:ems="5"
             android:textAlignment="viewEnd"
-            android:text="Salt : "/>
+            android:text="@string/salt"/>
         <EditText
             android:id="@+id/Salt"
             android:layout_width="wrap_content"
@@ -145,7 +145,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="30dp"
-        android:text="Send"
+        android:text="@string/send"
         android:layout_gravity="end" />
 
 

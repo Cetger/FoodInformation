@@ -51,10 +51,10 @@ public class FragmentAllUsers extends Fragment {
         listadmin = new ArrayList<>();
         listmoderator = new ArrayList<>();
         listView.setOnItemClickListener((adapterView, view1, i, l) -> new SweetAlertDialog(getContext(), SweetAlertDialog.WARNING_TYPE)
-                .setTitleText("Warning")
-                .setContentText("Select the operation")
-                .setCancelText("Edit")
-                .setConfirmText("Delete")
+                .setTitleText(getString(R.string.War))
+                .setContentText(getString(R.string.SelTheOp))
+                .setCancelText(getString(R.string.Edit))
+                .setConfirmText(getString(R.string.Delete))
                 .showCancelButton(true)
                 .setConfirmClickListener(sweetAlertDialog -> {
                 sweetAlertDialog.cancel();
@@ -87,8 +87,8 @@ public class FragmentAllUsers extends Fragment {
             STR2 = "User";
         }
         new SweetAlertDialog(getContext(), SweetAlertDialog.WARNING_TYPE)
-                .setTitleText("Warning")
-                .setContentText("User will be ...")
+                .setTitleText(getString(R.string.War))
+                .setContentText(getString(R.string.UseWillBe))
                 .setCancelText(STR1)
                 .setConfirmText(STR2)
                 .showCancelButton(true)
@@ -115,8 +115,8 @@ public class FragmentAllUsers extends Fragment {
     void Delete(int i)
     {
                 new SweetAlertDialog(getContext(), SweetAlertDialog.WARNING_TYPE)
-                .setTitleText("Warning")
-                .setContentText("User will be deleted")
+                .setTitleText(getString(R.string.War))
+                .setContentText(getString(R.string.UseWilDel))
                 .setCancelText("NO")
                 .setConfirmText("YES")
                 .showCancelButton(true)
@@ -132,7 +132,6 @@ public class FragmentAllUsers extends Fragment {
             public void onResponse(Call<AdminDTO> call, Response<AdminDTO> response) {
                 if(response.isSuccessful())
                 {
-                    Toast.makeText(getContext(),"User successfully deleted",Toast.LENGTH_SHORT).show();
                     FillListView();
                 }
             }
@@ -149,7 +148,6 @@ public class FragmentAllUsers extends Fragment {
             public void onResponse(Call<AdminDTO> call, Response<AdminDTO> response) {
                 if(response.isSuccessful())
                 {
-                    Toast.makeText(getContext(),"User successfully deleted",Toast.LENGTH_SHORT).show();
                     FillListView();
                 }
             }
@@ -166,7 +164,6 @@ public class FragmentAllUsers extends Fragment {
             public void onResponse(Call<AdminDTO> call, Response<AdminDTO> response) {
                 if(response.isSuccessful())
                 {
-                    Toast.makeText(getContext(),"User successfully deleted",Toast.LENGTH_SHORT).show();
                     FillListView();
                 }
             }
@@ -183,7 +180,6 @@ public class FragmentAllUsers extends Fragment {
             public void onResponse(Call<ModeratorDTO> call, Response<ModeratorDTO> response) {
                 if(response.isSuccessful())
                 {
-                    Toast.makeText(getContext(),"User successfully deleted",Toast.LENGTH_SHORT).show();
                     FillListView();
                 }
             }
