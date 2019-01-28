@@ -46,10 +46,10 @@ public class FragmentAllUsers extends Fragment {
                              Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_fragment_all_users, container, false);
         listView = view.findViewById(R.id.listviewuser);
-        service = Common.GetService();
         list = new ArrayList<>();
         listadmin = new ArrayList<>();
         listmoderator = new ArrayList<>();
+        service = Common.GetService();
         listView.setOnItemClickListener((adapterView, view1, i, l) -> new SweetAlertDialog(getContext(), SweetAlertDialog.WARNING_TYPE)
                 .setTitleText(getString(R.string.War))
                 .setContentText(getString(R.string.SelTheOp))

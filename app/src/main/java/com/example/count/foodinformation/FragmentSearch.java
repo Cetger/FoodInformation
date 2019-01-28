@@ -50,7 +50,7 @@ public class FragmentSearch extends Fragment {
     ArrayAdapter<CharSequence> arrayAdapter;
     private Service service ;
     ArrayList BarcodeList;
-    boolean first =false;
+    int chosen =0;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -58,24 +58,25 @@ public class FragmentSearch extends Fragment {
         //gönderilecek=view.findViewById(R.id.gonderilecekveri);
         searchEdit=view.findViewById(R.id.searchedittext);
         listView= view.findViewById(R.id.itemlist);
+        if(languageList ==null)
         languageList = new ArrayList<>();
-        arrayAdapter= new ArrayAdapter<CharSequence>(getContext(),support_simple_spinner_dropdown_item);
+        if(arrayAdapter ==null)
+        arrayAdapter= new ArrayAdapter<>(getContext(), support_simple_spinner_dropdown_item);
         AlertDialog.Builder alertDialogBuilder=new AlertDialog.Builder(getContext());
         View dialogView=inflater.inflate(R.layout.language_custom,null);
         alertDialogBuilder.setView(dialogView);
         ListView spinner = dialogView.findViewById(R.id.listviewLanguage);
         AlertDialog alertDialog=alertDialogBuilder.create();
-        spinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Bundle bundle = new Bundle();
-                FragmentShowInfo fragmentShowInfo = new FragmentShowInfo();
-                bundle.putString("BARCODE",BarcodeList.get(i).toString());
-                bundle.putString("LANGUAGE",languageList.get(i).toString());
-                fragmentShowInfo.setArguments(bundle);
-                setFragment(fragmentShowInfo);
-                alertDialog.hide();
-            }
+        spinner.setOnItemClickListener((adapterView, view12, i, l) -> {
+            Bundle bundle = new Bundle();
+            FragmentShowInfo fragmentShowInfo = new FragmentShowInfo();
+            String Barcode = BarcodeList.get(chosen).toString();
+            String language = languageList.get(i);
+            bundle.putString("BARCODE",Barcode);
+            bundle.putString("LANGUAGE", language);
+            fragmentShowInfo.setArguments(bundle);
+            setFragment(fragmentShowInfo);
+            alertDialog.hide();
         });
         listView.setOnItemClickListener((adapterView, view1, i, l) -> {
             service.GetLanguageListOfProductByBarcodeId(new BarcodeDTO(BarcodeList.get(i).toString())).enqueue(new Callback<LanguagesClass>() {
@@ -90,8 +91,7 @@ public class FragmentSearch extends Fragment {
                                 arrayAdapter.add(response.body().getResult()[i].getLanguageName());
                                 languageList.add(response.body().getResult()[i].getLanguageCode());
                             }
-
-                            first=true;
+                            chosen = i;
                             spinner.setAdapter(arrayAdapter);
                             alertDialog.show();
                         }
@@ -116,7 +116,6 @@ public class FragmentSearch extends Fragment {
 
                     }
                 }
-
                 @Override
                 public void onFailure(Call<LanguagesClass> call, Throwable t) {
                     Toast.makeText(getContext(),"Failure",Toast.LENGTH_SHORT).show();
@@ -124,6 +123,7 @@ public class FragmentSearch extends Fragment {
             });
         });
         ArrayList list = new ArrayList();
+        if(BarcodeList== null)
         BarcodeList = new ArrayList();
         service = Common.GetService();
         searchEdit.addTextChangedListener(new TextWatcher() {
@@ -142,6 +142,7 @@ public class FragmentSearch extends Fragment {
                             if(response.isSuccessful())
                             {
                                 list.clear();
+                                BarcodeList.clear();
                                 for(int i = 0 ; i < response.body().getResult().length;i++)
                                 {
                                     list.add(response.body().getResult()[i].getProductName());

@@ -76,4 +76,8 @@
     <string name="LanGeEror">Fehler bei der Sprache</string>
     <string name="ErrorGet">Fehler beim Fehler</string>
     <string name="ErrorGetCat">Fehler beim Abrufen der Kategorie</string>
+    <string name="productdeletedsuccessfully">Product Deleted Successfully</string>
+    <string name="nocontent">This product don\'t have any content</string>
+    <string name="ContentUpload">Content Updated Successfully</string>
+    <string name="acccreatedsucc">Account created successfully</string>
 </resources>

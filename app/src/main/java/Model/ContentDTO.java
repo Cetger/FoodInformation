@@ -5,7 +5,6 @@ import java.util.List;
 public class ContentDTO  extends BaseDTO
 {
     private String Ingredients ;
-    private String ID;
     private NutritionFacts NutritionFact ;
     private ProductDTO Product ;
     private String Warnings ;
@@ -115,16 +114,6 @@ public class ContentDTO  extends BaseDTO
     public void setDetails(String details) {
         Details = details;
     }
-
-
-    public String getID() {
-        return ID;
-    }
-
-    public void setID(String ID) {
-        this.ID = ID;
-    }
-
 
     public CommentDTO[] getComments() {
         return Comments;

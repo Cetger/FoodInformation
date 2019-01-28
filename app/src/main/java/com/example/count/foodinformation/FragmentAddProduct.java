@@ -125,6 +125,10 @@ public class FragmentAddProduct extends Fragment {
                 {
                     txCategory.setVisibility(View.VISIBLE);
                 }
+                else
+                {
+                    txCategory.setVisibility(View.INVISIBLE);
+                }
             }
 
             @Override
@@ -132,11 +136,10 @@ public class FragmentAddProduct extends Fragment {
 
             }
         });
-        if(!Categories.isEmpty())
-        {
-            arrayList.add("Diğer");
-            categorySpinner.setAdapter(new ArrayAdapter<>(getContext(), support_simple_spinner_dropdown_item, arrayList));
-        }
+        arrayList.add("Others");
+        categorySpinner.setAdapter(new ArrayAdapter<>(getContext(), support_simple_spinner_dropdown_item, arrayList));
+      //  if(!Categories.isEmpty())
+
         imgScan.setOnClickListener(view15 -> {
             Scanner scanner =  mainActivity.scanner;
             scanner.getBarcode = true;

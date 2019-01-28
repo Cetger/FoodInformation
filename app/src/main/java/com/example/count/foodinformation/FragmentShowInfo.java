@@ -130,14 +130,14 @@ public class FragmentShowInfo extends Fragment {
                     txDetails.setText(response.body().getResult().getDetails());
                     ratingBar.setRating(Float.valueOf(response.body().getResult().getAverageVote())/2);
                     txRate.setText(String.valueOf(Float.valueOf(response.body().getResult().getAverageVote())/2));
-                    pieData.add(new SliceValue(Float.valueOf(response.body().getResult().getNutritionFact().getEnergy()), Color.parseColor("#d32f2f")).setLabel("Energy"));
-                    pieData.add(new SliceValue(Float.valueOf(response.body().getResult().getNutritionFact().getFat()), Color.parseColor("#f57c00")).setLabel("Fat"));
-                    pieData.add(new SliceValue(Float.valueOf(response.body().getResult().getNutritionFact().getSaturatedFattyAcids()), Color.parseColor("#d4e157")).setLabel("SaturatedFattyAcids"));
-                    pieData.add(new SliceValue(Float.valueOf(response.body().getResult().getNutritionFact().getTransFattyAcids()), Color.parseColor("#3498DB")).setLabel("TransFattyAcids"));
-                    pieData.add(new SliceValue(Float.valueOf(response.body().getResult().getNutritionFact().getCarbohydrate()), Color.parseColor("#239B56")).setLabel("Carbohydrate"));
-                    pieData.add(new SliceValue(Float.valueOf(response.body().getResult().getNutritionFact().getFiber()), Color.parseColor("#6C3483")).setLabel("Fiber"));
-                    pieData.add(new SliceValue(Float.valueOf(response.body().getResult().getNutritionFact().getProtein()), Color.parseColor("#C39BD3")).setLabel("Protein"));
-                    pieData.add(new SliceValue(Float.valueOf(response.body().getResult().getNutritionFact().getSalt()), Color.parseColor("#F1C40F")).setLabel("Salt"));
+                    if(response.body().getResult().getNutritionFact().getEnergy()!=null) pieData.add(new SliceValue(Float.valueOf(response.body().getResult().getNutritionFact().getEnergy()), Color.parseColor("#d32f2f")).setLabel("Energy"));
+                    if(response.body().getResult().getNutritionFact().getFat()!=null) pieData.add(new SliceValue(Float.valueOf(response.body().getResult().getNutritionFact().getFat()), Color.parseColor("#f57c00")).setLabel("Fat"));
+                    if(response.body().getResult().getNutritionFact().getSaturatedFattyAcids()!=null) pieData.add(new SliceValue(Float.valueOf(response.body().getResult().getNutritionFact().getSaturatedFattyAcids()), Color.parseColor("#d4e157")).setLabel("SaturatedFattyAcids"));
+                    if(response.body().getResult().getNutritionFact().getTransFattyAcids()!=null) pieData.add(new SliceValue(Float.valueOf(response.body().getResult().getNutritionFact().getTransFattyAcids()), Color.parseColor("#3498DB")).setLabel("TransFattyAcids"));
+                    if(response.body().getResult().getNutritionFact().getCarbohydrate()!=null) pieData.add(new SliceValue(Float.valueOf(response.body().getResult().getNutritionFact().getCarbohydrate()), Color.parseColor("#239B56")).setLabel("Carbohydrate"));
+                    if(response.body().getResult().getNutritionFact().getFiber()!=null) pieData.add(new SliceValue(Float.valueOf(response.body().getResult().getNutritionFact().getFiber()), Color.parseColor("#6C3483")).setLabel("Fiber"));
+                    if(response.body().getResult().getNutritionFact().getProtein()!=null) pieData.add(new SliceValue(Float.valueOf(response.body().getResult().getNutritionFact().getProtein()), Color.parseColor("#C39BD3")).setLabel("Protein"));
+                    if(response.body().getResult().getNutritionFact().getSalt()!=null) pieData.add(new SliceValue(Float.valueOf(response.body().getResult().getNutritionFact().getSalt()), Color.parseColor("#F1C40F")).setLabel("Salt"));
                     pieChartData[0] = new PieChartData(pieData);
                     pieChartData[0].setHasLabels(true).setValueLabelTextSize(14);
                     pieChartView.setPieChartData(pieChartData[0]);
@@ -233,7 +233,7 @@ public class FragmentShowInfo extends Fragment {
                 @Override
                 public void onResponse(Call<VoteDTO> call, Response<VoteDTO> response) {
                     if(response.isSuccessful())
-                        Toast.makeText(getContext(),getString(R.string.RateSuc),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(),getString(R.string.RateSuc),Toast.LENGTH_SHORT);//.show();
                     else
                         Toast.makeText(getContext(),getString(R.string.YouHaveAlready),Toast.LENGTH_SHORT).show();//Toast.makeText(getContext(),MainActivity.GetErrorMessage(response),Toast.LENGTH_SHORT).show();
                 }

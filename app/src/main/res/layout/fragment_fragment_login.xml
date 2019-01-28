@@ -60,20 +60,19 @@
 
         <android.support.v7.widget.LinearLayoutCompat
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <CheckBox
                 android:id="@+id/checkRemember"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="48dp"
+                android:layout_marginRight="148dp"
                 android:text="@string/remember"
+                android:layout_gravity="left"
                 />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/forget_password" />
+
         </android.support.v7.widget.LinearLayoutCompat>
 
 

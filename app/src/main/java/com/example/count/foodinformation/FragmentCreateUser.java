@@ -3,6 +3,7 @@ package com.example.count.foodinformation;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -82,7 +83,10 @@ public class FragmentCreateUser extends Fragment implements View.OnClickListener
                 {
                     if(response.isSuccessful())
                     {
-                        txStatus.setText("Success");
+                        Toast.makeText(getContext(),getString(R.string.acccreatedsucc),Toast.LENGTH_SHORT).show();
+                        setFragment(MainActivity.mainActivity.fragmentLogin);
+                        //getFragmentManager().popBackStack();
+
                     }
                     else
                     {
@@ -108,6 +112,13 @@ public class FragmentCreateUser extends Fragment implements View.OnClickListener
                 }
             });
         }
+    }
+    private void setFragment(Fragment fragment)
+    {
+        FragmentTransaction fragmentTransaction  =  getActivity().getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.frame_layout,fragment);
+        //fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
 }

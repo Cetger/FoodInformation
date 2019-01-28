@@ -91,6 +91,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
                     if(response.isSuccessful())
                     {
                         String UserName = response.body().getResult().getUsername();
+
                         isAdmin = response.body().getResult().isAdmin();
                         isModerator = response.body().getResult().isModerator();
                         if(isAdmin)
@@ -101,7 +102,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
                         if(isModerator)
                         {
                             MainActivity.product.setVisible (true);
-                            MainActivity.Categorize.setVisible(true);
+                           // MainActivity.Categorize.setVisible(true);
                         }
                         isModerator = response.body().getResult().isModerator();
                         service.GetUserDetailByUsername(new UserDTO(UserName)).enqueue(new Callback<UserDTO>() {
@@ -141,7 +142,14 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
                                         bundle.putString("USERNAME", response.body().getResult().getUsername());
                                         bundle.putString("EMAIL", response.body().getResult().getEmail());
                                         MainActivity.mainActivity.fragmentProfile.setArguments(bundle);
-                                        setFragment(MainActivity.mainActivity.fragmentProfile);//setFragment(fragmentProfile);
+                                        if(isAdmin)
+                                            setFragment(new FragmentAllUsers());//setFragment(fragmentProfile);
+                                        else if(isModerator)
+                                            setFragment(new FragmentAllProduct());//setFragment(fragmentProfile);
+                                        else
+                                            setFragment(MainActivity.mainActivity.fragmentProfile);//setFragment(fragmentProfile);
+
+
                                     }
                                 }
                             }

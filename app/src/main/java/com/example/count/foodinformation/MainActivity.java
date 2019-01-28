@@ -39,6 +39,7 @@ import Model.CategoryClass;
 import Model.CategoryLanguage;
 import Model.CreateUserClass;
 import Model.DynamicPreference;
+import Model.DynamicPreference2;
 import Model.ErrorClass;
 import Model.LanguagesClass;
 import Remote.Service;
@@ -174,7 +175,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     if(FragmentLogin.UserID==0)
                         setFragment(fragmentLogin);
                     else
-                        setFragment(new FragmentAllUsers());
+                        setFragment(fragmentProfile);
                     return true;
                 case R.id.nav_scan:
                     setFragment(scanner);
@@ -226,12 +227,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 spinner.setAdapter(arrayAdapter);
                 DynamicPreference.Languages = llist.toArray(new String[llist.size()]);
                 DynamicPreference.Values = dlist.toArray(new String[dlist.size()]);
+                DynamicPreference2.Languages = new String[]{"Türkçe","English","Polski","Deutsche"};
+                DynamicPreference2.Values = new String[]{"tr","en","pl","de"};
                 if(Index!=-1)
                     spinner.setSelection(Index);
                 }
                 else
                 {
-                    Toast.makeText(MainActivity.this,getString(R.string.LanGeEror),Toast.LENGTH_SHORT).show();
+                   Toast.makeText(MainActivity.this,getString(R.string.LanGeEror),Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -267,6 +270,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
     public void GetCategoryList()
     {
+        Categories.clear();
+        arrayList.clear();
         service.Categories(new CategoryLanguage(Language)).enqueue(new Callback<CategoryClass>() {
             @Override
             public void onResponse(Call<CategoryClass> call, Response<CategoryClass> response) {
@@ -287,7 +292,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onFailure(Call<CategoryClass> call, Throwable t) {
                 Toast.makeText(MainActivity.this,"Error getting Category failure",Toast.LENGTH_SHORT).show();
-
             }
         });
     }
@@ -298,7 +302,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         {
             PreferenceManager.getDefaultSharedPreferences(this).edit().putString("Language", String.valueOf(LanguageCodes.get(spinner.getSelectedItemPosition()))).apply();
             SkipWelcome();
-
         }
     }
     private void SkipWelcome()

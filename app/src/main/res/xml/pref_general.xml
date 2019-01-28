@@ -1,8 +1,10 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-
  <Model.DynamicPreference
-        android:defaultValue="-1"
-        android:key="Language"
-        android:title="Language"/>
-
+   android:defaultValue="-1"
+   android:key="Language"
+   android:title="Language"/>
+ <!--<Model.DynamicPreference2
+   android:defaultValue="-1"
+   android:key="SystemLanguage"
+   android:title="System Language"/>-->
 </PreferenceScreen>
