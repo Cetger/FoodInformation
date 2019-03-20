@@ -1,6 +1,6 @@
 # FoodInformation
 
-<img src="https://user-images.githubusercontent.com/31896026/54650623-7d6d4480-4ac0-11e9-9806-170de2b16b60.jpg" width="200" height="400" />
+<img src="https://user-images.githubusercontent.com/31896026/54650623-7d6d4480-4ac0-11e9-9806-170de2b16b60.jpg" width="400" height="800" />
 
 <img src="https://user-images.githubusercontent.com/31896026/54650634-8e1dba80-4ac0-11e9-9b9a-0c23597d93a6.jpg" width="200" height="400" />
 
